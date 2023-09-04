@@ -39,9 +39,11 @@ class MainActivity : AppCompatActivity() {
         // 2. TabLayout과 ViewPaper2를 연결하고, TabItem의 메뉴명을 설정한다.
         TabLayoutMediator(mainBinding.mainTabLayout, mainBinding.mainViewPager, {tab, position -> tab.text = tabTitles[position]}).attach()
 
+        // Floating 버튼 클릭 리스너
         mainBinding.mainFloatBtn.setOnClickListener {
             Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
         }
+        febClickEvent()
     }
 
     // 툴바 아이템 사용
@@ -65,5 +67,12 @@ class MainActivity : AppCompatActivity() {
 
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+    private fun febClickEvent(){
+        mainBinding.mainFloatBtn.setOnClickListener{
+            val dialog = AddNumberDialog()
+            dialog.show(supportFragmentManager,"AddNumberDialog")
+        }
+
     }
 }
