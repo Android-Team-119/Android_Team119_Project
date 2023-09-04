@@ -1,6 +1,8 @@
 package com.example.myapplication.data
 
 object ContactManager {
+
+    //예제 데이터
     private val contactList = mutableListOf<Contact>(
         Contact(null, "이름1", "1", "1", false),
         Contact(null, "이름2", "2", "2", false),
@@ -13,6 +15,9 @@ object ContactManager {
         Contact(null, "이름9", "9", "9", false),
         Contact(null, "이름10", "10", "10", false),
     )
+
+    //개인 정보 객체
+    var user = Contact(null, "이충환", "010", "1", false)
 
     //전화번호 추가
     fun addContact(contact: Contact) {
@@ -44,6 +49,11 @@ object ContactManager {
     //모든 연락처를 return
     fun getContactList(): List<Contact> {
         return contactList.toList()
+    }
+
+    //user 데이터 업데이트
+    fun updateUser(updatedUser: Contact) {
+        user = updatedUser
     }
 
 }
