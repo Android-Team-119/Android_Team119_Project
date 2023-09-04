@@ -42,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         // Floating 버튼 클릭 리스너
         mainBinding.mainFloatBtn.setOnClickListener {
             Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
+            febClickEvent()
         }
-        febClickEvent()
+
     }
 
     // 툴바 아이템 사용
