@@ -23,14 +23,13 @@
             <ImageView
                 android:id="@+id/profileImage_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,1:1"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background"
-                app:layout_aspectRatio="100%"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_widthPercent="100%" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/name_detail"

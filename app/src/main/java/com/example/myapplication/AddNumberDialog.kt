@@ -30,7 +30,7 @@ class AddNumberDialog: DialogFragment() {
     }
 
     private fun selectGallery(){
-        var writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.)
+        //var writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.)
 
     }
 
