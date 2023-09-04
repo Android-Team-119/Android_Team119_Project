@@ -16,6 +16,8 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.DialogAddNumberBinding
 import java.lang.NumberFormatException
 import java.util.regex.Pattern
@@ -23,6 +25,7 @@ import java.util.regex.Pattern
 
 class AddNumberDialog: DialogFragment() {
     private var _binding: DialogAddNumberBinding? = null
+    private var selectedImageUri: Uri? = null
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -32,7 +35,7 @@ class AddNumberDialog: DialogFragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val data: Intent? = result.data
                     if (data != null) {
-                        val selectedImageUri: Uri? = data.data
+                        selectedImageUri = data.data
                         if (selectedImageUri != null) {
                             binding.profileImg.setImageURI(selectedImageUri)
                         } else {
@@ -79,7 +82,7 @@ class AddNumberDialog: DialogFragment() {
         }catch(e:NumberFormatException){
             false
         }
-    }
+    }//숫자 검사 기능
     private fun onPressSaveBtn(){
         with(binding){
             btnSave.setOnClickListener{//Save버튼 눌렀을 시 실행
@@ -89,17 +92,31 @@ class AddNumberDialog: DialogFragment() {
                     inputNumberLayout.error="전화번호를 입력해주세요"
                 }else if(inputEmail.text!!.isEmpty()){
                     inputEmailLayout.error="이메일을 입력해주세요"
+                }else if(selectedImageUri == null){
+                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
+                }else{
+                    ContactManager.addContact(
+                        Contact(
+                            selectedImageUri!!,
+                            inputName.text.toString(),
+                            inputNumber.text.toString(),
+                            inputEmail.text.toString(),
+                            false
+                        )
+                    )
+                    dismiss()
+
                 }
             }
         }
-    }
+    }//save버튼 눌렀을 시 실행하는 기능
     private fun onPressCancelBtn(){
         with(binding){
             btnCancel.setOnClickListener{//Cancel버튼 눌렀을 시 Dialog 종료
                 dismiss()//Dialog 종료 함수
             }
         }
-    }
+    }//cancle버튼 눌렀을 시 실행하는 기능
     private fun checkEditBox(){
         //유효성
 //    이름 : 빈칸만 없게
@@ -161,7 +178,7 @@ class AddNumberDialog: DialogFragment() {
             }
             )
         }
-    }
+    }//EditBox 유효성검사 코드
     private fun onPressImgView(){
         with(binding){
             profileImg.setOnClickListener {
@@ -186,14 +203,14 @@ class AddNumberDialog: DialogFragment() {
                 }
             }
         }
-        }
-    private fun navigateGallery() {//갤러리에서 사진 보는 함수
+        }//ImgView 사진 추가시 사용되는 코드
+    private fun navigateGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         pickImageActivityResult.launch(intent)
-    }
+    }//갤러리에서 사진 보는 함수
     // 권한 요청 팝업
-    private fun showPermissionContextPopup() {//권한부여 Dialog 생성
+    private fun showPermissionContextPopup() {
         AlertDialog.Builder(activity)
             .setTitle("권한을 부여해주세요")
             .setMessage("권한을 부여해주세요")
@@ -203,7 +220,7 @@ class AddNumberDialog: DialogFragment() {
             .setNegativeButton("취소") { _, _ -> }
             .create()
             .show()
-    }
+    }//권한부여 Dialog 생성
 
     }
 
