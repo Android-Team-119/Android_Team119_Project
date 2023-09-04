@@ -2,16 +2,16 @@ package com.example.myapplication.data
 
 object ContactManager {
     private val contactList = mutableListOf<Contact>(
-        Contact(null, "이름1", "", "", false),
-        Contact(null, "이름2", "", "", false),
-        Contact(null, "이름3", "", "", false),
-        Contact(null, "이름4", "", "", false),
-        Contact(null, "이름5", "", "", false),
-        Contact(null, "이름6", "", "", false),
-        Contact(null, "이름7", "", "", false),
-        Contact(null, "이름8", "", "", false),
-        Contact(null, "이름9", "", "", false),
-        Contact(null, "이름10", "", "", false),
+        Contact(null, "이름1", "1", "1", false),
+        Contact(null, "이름2", "2", "2", false),
+        Contact(null, "이름3", "3", "3", false),
+        Contact(null, "이름4", "4", "4", false),
+        Contact(null, "이름5", "5", "5", false),
+        Contact(null, "이름6", "6", "6", false),
+        Contact(null, "이름7", "7", "7", false),
+        Contact(null, "이름8", "8", "8", false),
+        Contact(null, "이름9", "9", "9", false),
+        Contact(null, "이름10", "10", "10", false),
     )
 
     //전화번호 추가

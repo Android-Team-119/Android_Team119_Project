@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.myapplication.data.Contact
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 private lateinit var binding:FragmentContactDetailBinding
@@ -34,6 +35,13 @@ class ContactDetailFragment : Fragment() {
             val callIntent = Intent(Intent.ACTION_DIAL)
             startActivity(callIntent)
         }
+
+        val selectedContact = arguments?.getParcelable<Contact>("selectedContact")
+
+        binding.nameDetail.text = selectedContact?.name
+        binding.phoneNumberDetail.text = selectedContact?.phone
+        binding.emailDetail.text = selectedContact?.email
+
         return binding.root
     }
 }
