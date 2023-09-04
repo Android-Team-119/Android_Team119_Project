@@ -27,16 +27,16 @@ class ContactListFragment : Fragment() {
 
 
         val contactList = mutableListOf(
-            Contact(R.drawable.contactlistfragment_sample1_png, "이름1", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample2_png, "이름2", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample3_png, "이름3", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample4_png, "이름4", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample5_png, "이름5", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample6_png, "이름6", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample7_png, "이름7", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample8_png, "이름8", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample9_png, "이름9", "", "", false),
-            Contact(R.drawable.contactlistfragment_sample10_png, "이름10", "", "", false),
+            Contact(null, "이름1", "", "", false),
+            Contact(null, "이름2", "", "", false),
+            Contact(null, "이름3", "", "", false),
+            Contact(null, "이름4", "", "", false),
+            Contact(null, "이름5", "", "", false),
+            Contact(null, "이름6", "", "", false),
+            Contact(null, "이름7", "", "", false),
+            Contact(null, "이름8", "", "", false),
+            Contact(null, "이름9", "", "", false),
+            Contact(null, "이름10", "", "", false),
         )
 
         val adapter = ContactAdapter(contactList)

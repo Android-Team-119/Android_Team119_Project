@@ -31,7 +31,7 @@ class ContactAdapter(private val contactList: List<Contact>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(contact: Contact) {
-            binding.profileImageView.setImageResource(contact.image)
+//            binding.profileImageView.setImageResource(contact.image)
             binding.nameTextView.text = contact.name
         }
     }

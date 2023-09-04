@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,10 +25,14 @@ class ContactDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+
+
         }
         binding.callBtnDetail.setOnClickListener {
             Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            startActivity(callIntent)
         }
         return binding.root
     }
