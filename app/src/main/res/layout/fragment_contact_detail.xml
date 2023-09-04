@@ -81,7 +81,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ededed"
-                        android:text="mobile" />
+                        android:text="mobile"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/phoneNumber_detail"
@@ -95,7 +97,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ededed"
-                        android:text="email" />
+                        android:text="email"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/email_detail"
