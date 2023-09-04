@@ -25,21 +25,7 @@ class ContactListFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-
-        val contactList = mutableListOf(
-            Contact(null, "이름1", "", "", false),
-            Contact(null, "이름2", "", "", false),
-            Contact(null, "이름3", "", "", false),
-            Contact(null, "이름4", "", "", false),
-            Contact(null, "이름5", "", "", false),
-            Contact(null, "이름6", "", "", false),
-            Contact(null, "이름7", "", "", false),
-            Contact(null, "이름8", "", "", false),
-            Contact(null, "이름9", "", "", false),
-            Contact(null, "이름10", "", "", false),
-        )
-
-        val adapter = ContactAdapter(contactList)
+        val adapter = ContactAdapter()
         recyclerView.adapter = adapter
 
         return view
