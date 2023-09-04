@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.databinding.DialogAddNumberBinding
@@ -29,10 +31,21 @@ class AddNumberDialog: DialogFragment() {
         _binding = null
     }
 
-    private fun selectGallery(){
-        //var writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.)
-
-    }
-
+//        private fun selectGallery(){
+//        val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+//        val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ result ->
+//            result.forEach{
+//                if(!it.value){
+//                    Toast.makeText(this,"권한 동의 필요!",Toast.LENGTH_SHORT).show()
+//
+//                }
+//            }
+//        }
+//        private val readImage = registerForActivityResult(ActivityResultContracts.GetContent()){
+//            ee
+//        }
+//
+//
+//    }
 
 }
