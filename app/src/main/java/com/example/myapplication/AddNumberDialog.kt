@@ -97,8 +97,7 @@ class AddNumberDialog: DialogFragment() {
                 }else{
                     ContactManager.addContact(
                         Contact(
-//                            selectedImageUri!!,
-                            R.drawable.contactlistfragment_sample1_png,
+                            selectedImageUri!!,
                             inputName.text.toString(),
                             inputNumber.text.toString(),
                             inputEmail.text.toString(),
