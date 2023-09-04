@@ -33,7 +33,11 @@ class AddNumberDialog: DialogFragment() {
 //
 //        }
     }
-
+//유효성
+//    이름 : 빈칸만 없게
+//    이메일 : 이메일 정규식 private val email =
+//"^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+//    전화번호 : 빈칸만 없게, 숫자 확인,
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
