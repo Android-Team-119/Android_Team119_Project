@@ -106,7 +106,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ededed"
-                        android:text="email@email.com" />
+                        android:text="email@email.com"
+                        android:layout_marginBottom="20dp"/>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
