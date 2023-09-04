@@ -6,9 +6,9 @@
 <!--        counter-->
         <item name="counterTextAppearance">@style/CounterTextAppearance</item>
 <!--        EditText에 있을때의 Hint-->
-        <item name="android:textColorHint"></item>
+        <item name="android:textColorHint">#E9967A</item>
 <!--        상단에 있을때의 Hint-->
-        <item name="hintTextColor"></item>
+        <item name="hintTextColor">#A0522D</item>
         <item name="hintTextAppearance">@style/HintTextAppearance</item>
 <!--        helper-->
         <item name="errorEnabled">true</item>
