@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding.mainFloatBtn.setOnClickListener {
             Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
         }
+        febClickEvent()
     }
 
     // 툴바 아이템 사용
@@ -66,5 +67,12 @@ class MainActivity : AppCompatActivity() {
 
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+    private fun febClickEvent(){
+        mainBinding.mainFloatBtn.setOnClickListener{
+            val dialog = AddNumberDialog()
+            dialog.show(supportFragmentManager,"AddNumberDialog")
+        }
+
     }
 }
