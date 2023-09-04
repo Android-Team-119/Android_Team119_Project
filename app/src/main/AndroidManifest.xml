@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 갤러리 접근권한 설정 Permission 적용   -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 카메라 접근권한 설정 Permission 적용   -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
 
     <application
         android:allowBackup="true"
@@ -22,10 +36,6 @@
             </intent-filter>
         </activity>
     </application>
-    <!-- 갤러리 접근권한 설정 Permission 적용   -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- 카메라 접근권한 설정 Permission 적용   -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+
 
 </manifest>
