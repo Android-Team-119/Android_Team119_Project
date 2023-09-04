@@ -1,5 +1,10 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -20,6 +26,23 @@ class AddNumberDialog: DialogFragment() {
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+    private val pickImageActivityResult =//갤러리에서 선택한 사진 적용
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            with(binding){
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+                    if (data != null) {
+                        val selectedImageUri: Uri? = data.data
+                        if (selectedImageUri != null) {
+                            binding.profileImg.setImageURI(selectedImageUri)
+                        } else {
+                            Toast.makeText(activity, "사진을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
+        }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,11 +51,9 @@ class AddNumberDialog: DialogFragment() {
         _binding = DialogAddNumberBinding.inflate(inflater,container,false)
         val view = binding.root
         binding.profileImg.setOnClickListener{
-
         }
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -42,33 +63,16 @@ class AddNumberDialog: DialogFragment() {
             checkEditBox()
             onPressSaveBtn()
             onPressCancelBtn()
+            onPressImgView()
 
         }
     }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-//        private fun selectGallery(){
-//        val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-//        val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ result ->
-//            result.forEach{
-//                if(!it.value){
-//                    Toast.makeText(this,"권한 동의 필요!",Toast.LENGTH_SHORT).show()
-//
-//                }
-//            }
-//        }
-//        private val readImage = registerForActivityResult(ActivityResultContracts.GetContent()){
-//            ee
-//        }
-//
-//
-//    }
-    fun isNumberic(s : String):Boolean{
+    private fun isNumberic(s : String):Boolean{
         return try{
             s.toDouble()
             true
@@ -158,5 +162,48 @@ class AddNumberDialog: DialogFragment() {
             )
         }
     }
+    private fun onPressImgView(){
+        with(binding){
+            profileImg.setOnClickListener {
+                when {
+                    // 갤러리 접근 권한이 있는 경우
+                    ContextCompat.checkSelfPermission(
+                        requireActivity(),
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED -> {
+                        navigateGallery()
+                    }
+                    // 갤러리 접근 권한이 없는 경우
+                    shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    -> {
+                        showPermissionContextPopup()
+                    }
+                    // 권한 요청(requestPermissions) -> 갤러리 접근(onRequestPermissionResult)
+                    else -> requestPermissions(
+                        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                        1000
+                    )
+                }
+            }
+        }
+        }
+    private fun navigateGallery() {//갤러리에서 사진 보는 함수
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        pickImageActivityResult.launch(intent)
+    }
+    // 권한 요청 팝업
+    private fun showPermissionContextPopup() {//권한부여 Dialog 생성
+        AlertDialog.Builder(activity)
+            .setTitle("권한을 부여해주세요")
+            .setMessage("권한을 부여해주세요")
+            .setPositiveButton("권한 부여") { _, _ ->
+                requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
+            }
+            .setNegativeButton("취소") { _, _ -> }
+            .create()
+            .show()
+    }
 
-}
+    }
+
