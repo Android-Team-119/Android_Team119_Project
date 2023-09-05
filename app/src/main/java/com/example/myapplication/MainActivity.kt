@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        // 툴바 연결
-        setSupportActionBar(mainBinding.mainToolbar) // 커스텀 한 툴바를 액션바로 사용
-        supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바에 나오는 제목의 표시/ false로 해야 아래 타이틀이 나옴
-        mainBinding.mainToolbar.title = "도와줘요 119" // 툴바 타이틀
-
         // FragmentStateAdapter 생성
         val viewpagerFragmentAdapter = ViewPagerFragmentAdapter(this)
 
@@ -53,38 +48,5 @@ class MainActivity : AppCompatActivity() {
         //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
 
         //}
-    }
-
-    // 툴바 아이템 사용
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_item_toolbarmenu, menu)
-        return true
-    }
-
-    // 툴바 아이템 클릭 리스너
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.add_item -> { // 연락처 추가
-                febClickEvent()
-                return super.onOptionsItemSelected(item)
-            }
-
-            R.id.list_item -> { // 리스트 형식
-                Toast.makeText(this@MainActivity, "List Button", Toast.LENGTH_SHORT).show()
-                return super.onOptionsItemSelected(item)
-            }
-
-            R.id.grid_item -> { // 그리드 형식
-                Toast.makeText(this@MainActivity, "Grid Button", Toast.LENGTH_SHORT).show()
-                return super.onOptionsItemSelected(item)
-            }
-
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun febClickEvent() {
-        val dialog = AddNumberDialog()
-        dialog.show(supportFragmentManager, "AddNumberDialog")
     }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
+import com.example.myapplication.databinding.ContactlistItemGridBinding
 
 class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
@@ -126,4 +127,5 @@ class ContactAdapter() :
             binding.nameTextView.text = contact.name
         }
     }
+
 }

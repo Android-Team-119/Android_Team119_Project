@@ -2,9 +2,13 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
@@ -22,6 +26,36 @@ class ContactListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ContactlistFragmentBinding.inflate(inflater, container, false)
+
+        binding.run {
+            listToolbar.run {
+                // 제목 설정
+                title = "도와줘요 119"
+
+                inflateMenu(R.menu.main_item_toolbarmenu)
+
+                setOnMenuItemClickListener {
+                    when(it.itemId) {
+                        R.id.add_item -> {
+                            val dialog = AddNumberDialog()
+                            dialog.show(childFragmentManager, "AddNumberDialog")
+                            true
+                        }
+                        R.id.list_item -> {
+                            true
+                        }
+                        R.id.grid_item -> {
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }
+            }
+        }
+
         return binding.root
 
     }
@@ -29,6 +63,8 @@ class ContactListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
+
     }
     private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
