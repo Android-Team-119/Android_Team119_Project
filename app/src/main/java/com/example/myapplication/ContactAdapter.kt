@@ -26,9 +26,6 @@ class ContactAdapter() :
         Log.d("it","$contactList")
         this.notifyItemInserted(contactList.size - 1)
     }
-    fun getContact(contact:Contact?){
-        contactList = ContactManager.getContactList()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ContactlistItemBinding.inflate(
