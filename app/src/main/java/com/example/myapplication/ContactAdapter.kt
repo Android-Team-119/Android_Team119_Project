@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
@@ -16,8 +17,8 @@ import com.example.myapplication.databinding.ContactlistItemBinding
 class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-
     private var contactList = ContactManager.getContactList()
+
 
     fun addContact(contact:Contact?){
         if(contact == null){
@@ -60,6 +61,7 @@ class ContactAdapter() :
                 .commit()
         }
         contactDelete(holder,position)
+        favClicked(holder,position)
 
     }
 
@@ -93,10 +95,31 @@ class ContactAdapter() :
             false
         }
     }
+    fun favClicked(holder:ViewHolder,position:Int){
+        val context = holder.itemView.context
+        holder.favbtn.setOnClickListener{
+            if(contactList[position].isLike == false){
+                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_likebutton_image)
+                holder.favbtn.setImageDrawable(img)
+                ContactManager.updateIsLike(position,false)
+                Log.d("test","${contactList}")
+            }else{
+                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_unlikebutton_image)
+                holder.favbtn.setImageDrawable(img)
+                ContactManager.updateIsLike(position,true)
+                Log.d("test","${contactList}")
+            }
+
+        }
+
+    }
 
 
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val favbtn = binding.likeImageButton
+
+
 
         fun bind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)

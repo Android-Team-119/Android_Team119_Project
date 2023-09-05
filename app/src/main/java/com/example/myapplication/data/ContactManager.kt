@@ -55,6 +55,8 @@ object ContactManager {
     fun updateUser(updatedUser: Contact) {
         user = updatedUser
     }
-
+    fun updateIsLike(position:Int, like:Boolean) {
+        contactList[position].isLike = !like
+    }
 }
 

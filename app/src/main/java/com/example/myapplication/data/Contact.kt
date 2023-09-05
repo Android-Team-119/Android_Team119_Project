@@ -10,5 +10,5 @@ data class Contact(
     val name : String,
     val phone : String,
     val email : String,
-    val isLike : Boolean
+    var isLike : Boolean
 ) : Parcelable
