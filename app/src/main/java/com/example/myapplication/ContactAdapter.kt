@@ -70,4 +70,5 @@ class ContactAdapter() :
             binding.nameTextView.text = contact.name
         }
     }
+
 }
