@@ -17,22 +17,27 @@ import com.example.myapplication.databinding.ContactlistItemGridBinding
 
 class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-
     private var contactList = ContactManager.getContactList()
+    interface Item {
 
+    }
+    var item : Item? = null
 
-    fun addContact(contact:Contact?){
-        if(contact == null){
+    fun additem(contact: Contact?) {
+        if (contact == null) {
             return
         }
-        ContactManager.addContact(contact)
-        contactList = ContactManager.getContactList()
-        Log.d("it","$contactList")
-        this.notifyItemInserted(contactList.size - 1)
+        Log.d("ittest", "$contactList")
+//        ContactManager.addContact(contact)
+        contactList.add(contact)
+        Log.d("it", "$contactList")
+
+//        this.notifyItemInserted(contactList.size -1)
+        notifyDataSetChanged()
+
     }
     fun deleteContact(phone: String){
         ContactManager.deleteContactById(phone)
-        contactList = ContactManager.getContactList()
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +49,7 @@ class ContactAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("this","")
         val contact = contactList[position]
         holder.bind(contact)
         holder.itemView.setOnClickListener {
