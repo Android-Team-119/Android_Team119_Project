@@ -33,27 +33,28 @@
         android:id="@+id/frag_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/main_viewPager"
-        app:layout_constraintBottom_toBottomOf="@id/main_viewPager" />
+        app:layout_constraintBottom_toBottomOf="@id/main_viewPager"
+        app:layout_constraintTop_toTopOf="@id/main_viewPager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_floatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/main_tabLayout"
-        android:src="@drawable/main_floating_icon"
-        android:contentDescription="Add Tel"
         android:layout_margin="16dp"
-        android:scaleType="centerCrop"/>
+        android:contentDescription="Add Tel"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_uparrow_icon"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/main_tabLayout"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <!-- 탭매뉴 두 개 -->
         <com.google.android.material.tabs.TabItem
@@ -66,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:text="My Page" />
     </com.google.android.material.tabs.TabLayout>
 
