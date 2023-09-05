@@ -63,7 +63,7 @@ class ContactAdapter() :
         }
         contactDelete(holder,position)
         favClicked(holder,position)
-
+        Log.d("this","")
     }
 
     override fun getItemCount(): Int {
