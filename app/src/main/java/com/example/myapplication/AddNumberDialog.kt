@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.data.Contact
-import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.DialogAddNumberBinding
 import java.lang.NumberFormatException
 import java.util.regex.Pattern
@@ -26,6 +25,12 @@ import java.util.regex.Pattern
 class AddNumberDialog: DialogFragment() {
     private var _binding: DialogAddNumberBinding? = null
     private var selectedImageUri: Uri?= null
+    interface InputContact{//Contact를 넣는 함수에 대한 인터페이스
+        fun setContect(contact: Contact)//Contact세팅 함수
+    }
+
+    var testContact : InputContact? = null//인터페이스를 사용하기위한 변수 지정
+
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -92,12 +97,14 @@ class AddNumberDialog: DialogFragment() {
                     inputNumberLayout.error="전화번호를 입력해주세요"
                 }else if(inputEmail.text!!.isEmpty()){
                     inputEmailLayout.error="이메일을 입력해주세요"
-                }else if(selectedImageUri == null){
-                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
+//                }else if(selectedImageUri == null){
+//                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    ContactListFragment().setContact(
+                    //setcontect 인자 넘김
+                   testContact?.setContect(
                         Contact(
-                            selectedImageUri!!,
+                            null,
+//                            selectedImageUri!!,
                             inputName.text.toString(),
                             inputNumber.text.toString(),
                             inputEmail.text.toString(),
@@ -106,7 +113,6 @@ class AddNumberDialog: DialogFragment() {
                     )
 
                     dismiss()
-
                 }
             }
         }

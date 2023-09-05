@@ -1,5 +1,8 @@
 package com.example.myapplication.data
 
+import android.util.Log
+import com.example.myapplication.ContactAdapter
+
 object ContactManager {
 
     //예제 데이터
