@@ -47,8 +47,8 @@ object ContactManager {
     }
 
     //모든 연락처를 return
-    fun getContactList(): List<Contact> {
-        return contactList.toList()
+    fun getContactList(): MutableList<Contact> {
+        return contactList
     }
 
     //user 데이터 업데이트

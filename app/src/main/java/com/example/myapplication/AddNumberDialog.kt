@@ -25,7 +25,7 @@ import java.util.regex.Pattern
 
 class AddNumberDialog: DialogFragment() {
     private var _binding: DialogAddNumberBinding? = null
-    private var selectedImageUri: Uri? = null
+    private var selectedImageUri: Uri?= null
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -95,7 +95,7 @@ class AddNumberDialog: DialogFragment() {
                 }else if(selectedImageUri == null){
                     Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    ContactManager.addContact(
+                    ContactListFragment().setContact(
                         Contact(
                             selectedImageUri!!,
                             inputName.text.toString(),
@@ -104,6 +104,7 @@ class AddNumberDialog: DialogFragment() {
                             false
                         )
                     )
+
                     dismiss()
 
                 }

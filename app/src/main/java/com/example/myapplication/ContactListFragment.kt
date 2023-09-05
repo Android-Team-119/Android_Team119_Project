@@ -13,22 +13,36 @@ import com.example.myapplication.databinding.ContactlistFragmentBinding
 class ContactListFragment : Fragment() {
 
     private lateinit var binding: ContactlistFragmentBinding
+    private val listAdapter by lazy{
+        ContactAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ContactlistFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        // RecyclerView 초기화 및 어댑터 설정
-        val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val adapter = ContactAdapter()
-        recyclerView.adapter = adapter
-
-        return view
+        return binding.root
 
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+    private fun initView() = with(binding){
+        // RecyclerView 초기화 및 어댑터 설정
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = listAdapter
+//        val recyclerView = binding.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//
+//        val adapter = ContactAdapter()
+//        recyclerView.adapter = adapter
+    }
+
+    fun setContact(contact:Contact){
+        listAdapter.addContact(contact)
+    }
+
 }

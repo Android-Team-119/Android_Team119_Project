@@ -49,12 +49,10 @@ class MainActivity : AppCompatActivity() {
         var floatTop = true
 
         // Floating 버튼 클릭 리스너
-        mainBinding.mainFloatBtn.setOnClickListener {
-            //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
+        //mainBinding.mainFloatBtn.setOnClickListener {
+        //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
 
-        }
-
-
+        //}
     }
 
     // 툴바 아이템 사용
@@ -86,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun febClickEvent() {
-            val dialog = AddNumberDialog()
-            dialog.show(supportFragmentManager, "AddNumberDialog")
+        val dialog = AddNumberDialog()
+        dialog.show(supportFragmentManager, "AddNumberDialog")
     }
 }
