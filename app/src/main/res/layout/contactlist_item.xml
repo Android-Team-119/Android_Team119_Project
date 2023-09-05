@@ -42,8 +42,8 @@
 
     <ImageButton
         android:id="@+id/like_imageButton"
-        android:layout_width="@dimen/icon_size_small"
-        android:layout_height="@dimen/icon_size_small"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="@dimen/basic_margin"
         android:background="@color/white"
         android:scaleType="centerCrop"
