@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,21 @@ import com.example.myapplication.databinding.ContactlistItemBinding
 class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-    private val contactList = ContactManager.getContactList()
+    private var contactList = ContactManager.getContactList()
+
+
+    fun addContact(contact:Contact?){
+        if(contact == null){
+            return
+        }
+        ContactManager.addContact(contact)
+        contactList = ContactManager.getContactList()
+        Log.d("it","$contactList")
+        this.notifyItemInserted(contactList.size - 1)
+    }
+    fun getContact(contact:Contact?){
+        contactList = ContactManager.getContactList()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ContactlistItemBinding.inflate(
@@ -41,11 +56,14 @@ class ContactAdapter() :
                 .addToBackStack(null)
                 .commit()
         }
+        Log.d("it","onBindViewHolder")
     }
 
     override fun getItemCount(): Int {
+        Log.d("getItemCount","${contactList.size}")
         return contactList.size
     }
+
 
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
