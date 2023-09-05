@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
 import com.example.myapplication.data.Contact
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
@@ -36,11 +37,17 @@ class ContactDetailFragment : Fragment() {
             startActivity(callIntent)
         }
 
-        val selectedContact = arguments?.getParcelable<Contact>("selectedContact")
+        val contact = Contact(null, "디폴트 네임", "010-0000-0000", "email@email.com", false)
+        var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
 
-        binding.nameDetail.text = selectedContact?.name
-        binding.phoneNumberDetail.text = selectedContact?.phone
-        binding.emailDetail.text = selectedContact?.email
+        if(selectedContact==null){
+            selectedContact = contact
+            binding.linearLayout.visibility = View.GONE
+        }
+
+        binding.nameDetail.text = selectedContact.name
+        binding.phoneNumberDetail.text = selectedContact.phone
+        binding.emailDetail.text = selectedContact.email
 
         return binding.root
     }
