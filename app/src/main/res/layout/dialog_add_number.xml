@@ -5,9 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageButton
         android:id="@+id/profile_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
         android:background="@drawable/dialog_profile_img"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,11 +14,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_name_layout"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/text_field_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginVertical="@dimen/basic_margin"
         app:layout_constraintTop_toBottomOf="@id/profile_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -27,16 +24,14 @@
             android:id="@+id/input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="이름 입력"/>
+            android:hint="@string/name_input"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_number_layout"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/text_field_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginVertical="@dimen/basic_margin"
         app:layout_constraintTop_toBottomOf="@id/input_name_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -44,16 +39,14 @@
             android:id="@+id/input_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="전화번호 입력"/>
+            android:hint="@string/tell_number_input"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_email_layout"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/text_field_size"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginVertical="@dimen/basic_margin"
         app:layout_constraintTop_toBottomOf="@id/input_number_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -61,15 +54,15 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="이메일 입력"/>
+            android:hint="@string/email_input"/>
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CANCEL"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:text="@string/cancel"
+        android:layout_marginHorizontal="@dimen/basic_margin"
+        android:layout_marginVertical="@dimen/double_margin"
         app:layout_constraintTop_toBottomOf="@id/input_email_layout"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -77,9 +70,9 @@
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="17dp"
+        android:text="@string/save"
+        android:layout_marginHorizontal="@dimen/basic_margin"
+        android:layout_marginVertical="@dimen/double_margin"
         app:layout_constraintTop_toBottomOf="@id/input_email_layout"
         app:layout_constraintEnd_toEndOf="parent"
         />

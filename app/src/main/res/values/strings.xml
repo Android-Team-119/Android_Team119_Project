@@ -9,4 +9,9 @@
     <string name="email">E-mail</string>
     <string name="event">Event</string>
     <string name="name_explain">이름을 길게 써봅시다</string>
+    <string name="name_input">이름 입력</string>
+    <string name="tell_number_input">전화번호 입력</string>
+    <string name="email_input">이메일 입력</string>
+    <string name="cancel">CANCEL</string>
+    <string name="save">SAVE</string>
 </resources>
