@@ -2,7 +2,9 @@
 <resources>
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
+    <dimen name="floatingAction_button_margin">16dp</dimen>
     <dimen name="basic_margin">10dp</dimen>
+    <dimen name="sub_margin">5dp</dimen>
     <dimen name="list_item_text_size1">28dp</dimen>
     <dimen name="list_item_text_size2">16dp</dimen>
     <dimen name="list_item_padding">4dp</dimen>
