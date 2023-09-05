@@ -9,6 +9,7 @@
     <dimen name="list_item_text_size1">28dp</dimen>
     <dimen name="list_item_text_size2">16dp</dimen>
     <dimen name="list_item_padding">4dp</dimen>
+    <dimen name="icon_size_big">90dp</dimen>
     <dimen name="icon_size_basic">60dp</dimen>
     <dimen name="icon_size_small">30dp</dimen>
     <dimen name="text_bold_size">20sp</dimen>

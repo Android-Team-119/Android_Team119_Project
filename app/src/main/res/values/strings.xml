@@ -8,4 +8,5 @@
     <string name="mobile">Mobile</string>
     <string name="email">E-mail</string>
     <string name="event">Event</string>
+    <string name="name_explain">이름을 길게 써봅시다</string>
 </resources>
