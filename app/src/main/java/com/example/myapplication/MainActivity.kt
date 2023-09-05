@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         // Floating 버튼 클릭 리스너
         mainBinding.mainFloatBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -86,10 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun febClickEvent() {
-        mainBinding.mainFloatBtn.setOnClickListener {
             val dialog = AddNumberDialog()
             dialog.show(supportFragmentManager, "AddNumberDialog")
-        }
-
     }
 }
