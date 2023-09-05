@@ -86,10 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun febClickEvent() {
-        mainBinding.mainFloatBtn.setOnClickListener {
             val dialog = AddNumberDialog()
             dialog.show(supportFragmentManager, "AddNumberDialog")
-        }
-
     }
 }
