@@ -13,7 +13,7 @@ class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStat
 
     // 1. ViewPager2에 연결할 Fragment 들을 생성
 
-    val fragmentList = listOf<Fragment>(ContactGridFragment(), ContactDetailFragment())
+    val fragmentList = listOf<Fragment>(ContactListFragment(), ContactDetailFragment())
 
 
     // 2. ViesPager2에서 노출시킬 Fragment 의 갯수 설정
