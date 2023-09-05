@@ -42,7 +42,7 @@ class ContactDetailFragment : Fragment() {
 
         if(selectedContact==null){
             selectedContact = contact
-            binding.linearLayout.visibility = View.GONE
+            binding.linearLayoutCallBtn.visibility = View.GONE
         }
 
         binding.nameDetail.text = selectedContact.name
