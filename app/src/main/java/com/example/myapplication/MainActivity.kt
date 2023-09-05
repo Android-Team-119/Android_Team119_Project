@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
@@ -37,14 +38,21 @@ class MainActivity : AppCompatActivity() {
         val tabTitles = listOf<String>("Contact", "MyPage")
 
         // 2. TabLayout과 ViewPaper2를 연결하고, TabItem의 메뉴명을 설정한다.
-        TabLayoutMediator(mainBinding.mainTabLayout, mainBinding.mainViewPager, {tab, position -> tab.text = tabTitles[position]}).attach()
+        TabLayoutMediator(
+            mainBinding.mainTabLayout,
+            mainBinding.mainViewPager,
+            { tab, position -> tab.text = tabTitles[position] }).attach()
+
+        // 플로팅 버튼 fade
+        val fadeIn = AlphaAnimation(0f, 1f).apply { duration = 500 }
+        val fadeOut = AlphaAnimation(1f, 0f).apply { duration = 500 }
+        var floatTop = true
 
         // Floating 버튼 클릭 리스너
-        mainBinding.mainFloatBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
-            febClickEvent()
-        }
+        //mainBinding.mainFloatBtn.setOnClickListener {
+        //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
 
+        //}
     }
 
     // 툴바 아이템 사용
@@ -56,6 +64,11 @@ class MainActivity : AppCompatActivity() {
     // 툴바 아이템 클릭 리스너
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.add_item -> { // 연락처 추가
+                febClickEvent()
+                return super.onOptionsItemSelected(item)
+            }
+
             R.id.list_item -> { // 리스트 형식
                 Toast.makeText(this@MainActivity, "List Button", Toast.LENGTH_SHORT).show()
                 return super.onOptionsItemSelected(item)
@@ -69,11 +82,9 @@ class MainActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-    private fun febClickEvent(){
-        mainBinding.mainFloatBtn.setOnClickListener{
-            val dialog = AddNumberDialog()
-            dialog.show(supportFragmentManager,"AddNumberDialog")
-        }
 
+    private fun febClickEvent() {
+        val dialog = AddNumberDialog()
+        dialog.show(supportFragmentManager, "AddNumberDialog")
     }
 }
