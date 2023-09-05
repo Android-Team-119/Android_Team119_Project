@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactGridBinding
 
 class ContactGridFragment : Fragment() {
@@ -40,8 +41,6 @@ class ContactGridFragment : Fragment() {
 //        recyclerView.adapter = adapter
     }
 
-    fun setContact(contact: Contact){
-        gridAdapter.addContact(contact)
-    }
+
 
 }

@@ -2,16 +2,12 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
 class ContactListFragment : Fragment() {
@@ -20,6 +16,7 @@ class ContactListFragment : Fragment() {
     private val listAdapter by lazy{
         ContactAdapter()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +35,16 @@ class ContactListFragment : Fragment() {
                     when(it.itemId) {
                         R.id.add_item -> {
                             val dialog = AddNumberDialog()
+                            val adapter = ContactAdapter()
+                            dialog.testContact = object: AddNumberDialog.InputContact{
+                                override fun setContect(contact: Contact) {
+                                    ContactManager.addContact(contact)
+                                    listAdapter.notifyDataSetChanged()
+//                                    adapter.additem(contact)
+                                    }
+//                                    ContactAdapter().additem(contact)
+
+                                }
                             dialog.show(childFragmentManager, "AddNumberDialog")
                             true
                         }
@@ -70,6 +77,7 @@ class ContactListFragment : Fragment() {
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = listAdapter
+
 //        val recyclerView = binding.recyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 //
@@ -77,8 +85,5 @@ class ContactListFragment : Fragment() {
 //        recyclerView.adapter = adapter
     }
 
-    fun setContact(contact:Contact){
-        listAdapter.addContact(contact)
-    }
 
 }
