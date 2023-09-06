@@ -36,8 +36,9 @@ object ContactManager {
     fun updateContact(contact: Contact) {
         val existingContact = findContactByPhone(contact.phone)
         if (existingContact != null) {
-            contactList.remove(existingContact)
-            contactList.add(contact)
+            existingContact.name = contact.name
+            existingContact.phone = contact.phone
+            existingContact.email = contact.email
         }
     }
 
