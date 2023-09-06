@@ -5,21 +5,37 @@
     <string name="main_tab_contacts">Contacts</string>
     <string name="main_tab_mypage">My Page</string>
 
+    <!--contact list fragment-->
+    <string name="contact_list_floating_button_content_description">Add Tel</string>
 
-    <string name="contact">Contact</string>
-    <string name="myPage">MyPage</string>
-    <string name="modification">Modification</string>
-    <string name="call">Call</string>
-    <string name="mobile">Mobile</string>
-    <string name="email">E-mail</string>
-    <string name="event">Event</string>
-    <string name="name_explain">이름을 길게 써봅시다</string>
+    <!--contact list item-->
+    <string name="contact_list_item_name">이름</string>
+
+    <!-- dialog add number fragment -->
     <string name="name_input">이름 입력</string>
     <string name="tell_number_input">전화번호 입력</string>
     <string name="email_input">이메일 입력</string>
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
+
+    <!-- contact detail fragment    -->
+    <string name="modification">Modification</string>
+    <string name="call">Call</string>
+    <string name="mobile">Mobile</string>
+    <string name="email">E-mail</string>
     <string name="phone_book_input">연락처에서 불러오기</string>
+    <string name="fragment_contact_detail_demo_name">이름</string>
+    <string name="fragment_contact_detail_timer_off">Off</string>
+    <string name="fragment_contact_detail_timer_5min">5분</string>
+    <string name="fragment_contact_detail_timer_30min">30분</string>
+    <string name="fragment_contact_detail_timer_1hour">1시</string>
+    <string name="fragment_content_detail_mobile_demo">010-1234-8765</string>
+    <string name="fragment_contact_detail_email_demo">email@email.com</string>
+
+    <string name="contact">Contact</string>
+    <string name="myPage">MyPage</string>
+    <string name="name_explain">이름을 길게 써봅시다</string>
+
 
 
 </resources>
