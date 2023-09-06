@@ -17,16 +17,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.DialogAddNumberBinding
 import java.lang.NumberFormatException
 import java.util.regex.Pattern
 
 
-class AddNumberDialog: DialogFragment() {
+class UpdateNumberDialog: DialogFragment() {
     private var _binding: DialogAddNumberBinding? = null
     private var selectedImageUri: Uri?= null
     interface InputContact{//Contact를 넣는 함수에 대한 인터페이스
-        fun setContect(contact: Contact)//Contact세팅 함수
+    fun setContact(contact: Contact)//Contact세팅 함수
     }
 
     var testContact : InputContact? = null//인터페이스를 사용하기위한 변수 지정
@@ -34,7 +35,7 @@ class AddNumberDialog: DialogFragment() {
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-    private val pickImageActivityResult  =//갤러리에서 선택한 사진 적용
+    private val pickImageActivityResult =//갤러리에서 선택한 사진 적용
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             with(binding){
                 if (result.resultCode == Activity.RESULT_OK) {
@@ -100,16 +101,15 @@ class AddNumberDialog: DialogFragment() {
                 }else if(selectedImageUri == null){
                     Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    //setcontect 인자 넘김
-                   testContact?.setContect(
-                        Contact(
-                            selectedImageUri!!,
-                            inputName.text.toString(),
-                            inputNumber.text.toString(),
-                            inputEmail.text.toString(),
-                            false
-                        )
+                    val updatedContact = Contact(
+                        selectedImageUri!!,
+                        inputName.text.toString(),
+                        inputNumber.text.toString(),
+                        inputEmail.text.toString(),
+                        false
                     )
+
+                    testContact?.setContact(updatedContact)
 
                     dismiss()
                 }
@@ -209,7 +209,7 @@ class AddNumberDialog: DialogFragment() {
                 }
             }
         }
-        }//ImgView 사진 추가시 사용되는 코드
+    }//ImgView 사진 추가시 사용되는 코드
     private fun navigateGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -228,5 +228,5 @@ class AddNumberDialog: DialogFragment() {
             .show()
     }//권한부여 Dialog 생성
 
-    }
+}
 

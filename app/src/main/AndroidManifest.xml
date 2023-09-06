@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- 갤러리 접근권한 설정 Permission 적용   -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 연락처 연결을 위한 읽기 권한 설정 Permission 적용   -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- 카메라 접근권한 설정 Permission 적용   -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature
