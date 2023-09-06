@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,43 +13,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
+import com.example.myapplication.databinding.ContactlistItemGridBinding
 
-class ContactAdapter(private val gridType: Boolean = false) :
+class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-    private var contactList = ContactManager.getContactList()
-    interface Item {
+    var contactList = ContactManager.getContactList().toMutableList()
 
-    }
-    var item : Item? = null
-
-    companion object{
-        const val LIST_POSITION = false
-        const val GRID_POSITION = true
-    }
-
-    fun additem(contact: Contact?) {
-        if (contact == null) {
-            return
-        }
-        Log.d("ittest", "$contactList")
-//        ContactManager.addContact(contact)
+    fun addcontact(contact: Contact){
         contactList.add(contact)
-        Log.d("it", "$contactList")
-
-//        this.notifyItemInserted(contactList.size -1)
+        Log.d("it","$contactList")
         notifyDataSetChanged()
-
     }
+
+
     fun deleteContact(phone: String){
         ContactManager.deleteContactById(phone)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        if (!gridType){
-            R.layout.contactlist_item
-        }else{
-            R.layout.contactlist_item_grid
-        }
         val binding = ContactlistItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false
@@ -77,7 +59,7 @@ class ContactAdapter(private val gridType: Boolean = false) :
         }
         contactDelete(holder,position)
         favClicked(holder,position)
-        Log.d("this","")
+
     }
 
     override fun getItemCount(): Int {

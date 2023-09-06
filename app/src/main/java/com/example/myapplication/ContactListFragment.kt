@@ -1,11 +1,11 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
@@ -14,7 +14,7 @@ import com.example.myapplication.databinding.ContactlistFragmentBinding
 class ContactListFragment : Fragment() {
 
     private lateinit var binding: ContactlistFragmentBinding
-    private val listAdapter by lazy {
+    private val listAdapter by lazy{
         ContactAdapter()
     }
 
@@ -33,29 +33,24 @@ class ContactListFragment : Fragment() {
                 inflateMenu(R.menu.main_item_toolbarmenu)
 
                 setOnMenuItemClickListener {
-                    when (it.itemId) {
+                    when(it.itemId) {
                         R.id.add_item -> {
                             val dialog = AddNumberDialog()
-                            val adapter = ContactAdapter()
-                            dialog.testContact = object : AddNumberDialog.InputContact {
+
+                            dialog.testContact = object: AddNumberDialog.InputContact{
                                 override fun setContect(contact: Contact) {
-                                    ContactManager.addContact(contact)
-                                    listAdapter.notifyDataSetChanged()
-//                                    adapter.additem(contact)
-                                }
-//                                    ContactAdapter().additem(contact)
+                                    ContactManager.addContact(contact)//전역변수에 값 저장
+                                    listAdapter.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
+                                    }
+
                             }
                             dialog.show(childFragmentManager, "AddNumberDialog")
                             true
                         }
-
                         R.id.list_item -> {
-                            initView()
                             true
                         }
-
                         R.id.grid_item -> {
-                            initGridView()
                             true
                         }
 
@@ -66,16 +61,18 @@ class ContactListFragment : Fragment() {
                 }
             }
         }
+
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
-    }
 
-    private fun initView() = with(binding) {
+    }
+    private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = listAdapter
@@ -87,8 +84,5 @@ class ContactListFragment : Fragment() {
 //        recyclerView.adapter = adapter
     }
 
-    private fun initGridView() = with(binding) {
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
-        recyclerView.adapter = listAdapter
-    }
+
 }
