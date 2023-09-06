@@ -1,13 +1,14 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
@@ -84,6 +85,34 @@ class ContactListFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        // 플로팅 버튼 fade
+        val fadeIn = AlphaAnimation(0f, 1f).apply { duration = 500 }
+        val fadeOut = AlphaAnimation(1f, 0f).apply { duration = 500 }
+        var floatTop = true
+
+        binding.recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!binding.recyclerView.canScrollVertically(-1)
+                    && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    binding.listFloatBtn.startAnimation(fadeOut)
+                    binding.listFloatBtn.visibility = View.GONE
+                    floatTop = true
+                } else {
+                    if(floatTop) {
+                        binding.listFloatBtn.visibility = View.VISIBLE
+                        binding.listFloatBtn.startAnimation(fadeIn)
+                        floatTop = false
+                    }
+                }
+            }
+        })
+
+        // Floating 버튼 클릭 리스너
+        binding.listFloatBtn.setOnClickListener {
+            binding.recyclerView.smoothScrollToPosition(0)
         }
 
         return binding.root
