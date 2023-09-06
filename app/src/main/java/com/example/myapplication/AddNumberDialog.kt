@@ -34,7 +34,7 @@ class AddNumberDialog: DialogFragment() {
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-    private val pickImageActivityResult =//갤러리에서 선택한 사진 적용
+    private val pickImageActivityResult  =//갤러리에서 선택한 사진 적용
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             with(binding){
                 if (result.resultCode == Activity.RESULT_OK) {
