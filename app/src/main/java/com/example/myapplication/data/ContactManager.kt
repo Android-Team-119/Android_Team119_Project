@@ -6,7 +6,7 @@ import android.net.Uri
 
 object ContactManager {
 
-    val imageuri1: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + com.example.myapplication.R.drawable.contactlistfragment_sample5_png)
+    val imageuri1: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + com.example.myapplication.R.drawable.contactlistfragment_sample10_png)
     val imageuri2 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.ic_delete)
     //예제 데이터
     private val contactList = mutableListOf<Contact>(
