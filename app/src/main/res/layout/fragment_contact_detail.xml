@@ -83,7 +83,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <Button
-                        android:id="@+id/three_min_btn"
+                        android:id="@+id/off_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
@@ -98,7 +98,7 @@
                         android:layout_weight="1"
                         android:text="5분" />
                     <Button
-                        android:id="@+id/Thirty_min_btn"
+                        android:id="@+id/thirty_min_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"

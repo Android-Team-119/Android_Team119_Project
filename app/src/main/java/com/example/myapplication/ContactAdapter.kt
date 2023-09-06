@@ -16,16 +16,16 @@ import com.example.myapplication.databinding.ContactlistItemGridBinding
 
 class ContactAdapter(private val listType: Boolean = false) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var contactList = ContactManager.getContactList().toMutableList()
-
+//    var contactList = ContactManager.getContactList().toMutableList()
+    var contactList = ContactManager.getContactList()
     fun addcontact(contact: Contact){
-        contactList.add(contact)
+        ContactManager.addContact(contact)
+//        contactList.add(contact)
         notifyDataSetChanged()
     }
-
-
-    fun deleteContact(phone: String){
+    fun deleteContact(phone:String){
         ContactManager.deleteContactById(phone)
+//        contactList.remove(contact)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -51,7 +51,6 @@ class ContactAdapter(private val listType: Boolean = false) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("this","")
         val contact = contactList[position]
         if (holder is ViewHolder){
             holder.bind(contact)
@@ -89,6 +88,7 @@ class ContactAdapter(private val listType: Boolean = false) :
                     .addToBackStack(null)
                     .commit()
             }
+            contactDelete(holder,position)
         }
 
 
@@ -99,6 +99,30 @@ class ContactAdapter(private val listType: Boolean = false) :
         return contactList.size
     }
     fun contactDelete(holder: ViewHolder, position: Int){
+        holder.itemView.setOnLongClickListener{
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setTitle("삭제")
+            builder.setMessage("삭제하시겠습니까?")
+            val listener = object : DialogInterface.OnClickListener{
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    when(p1){
+                        DialogInterface.BUTTON_POSITIVE ->{
+                            deleteContact(contactList[position].phone)
+                            return
+                        }
+                        DialogInterface.BUTTON_NEGATIVE ->
+                            return
+                    }
+                }
+            }
+            builder.setNegativeButton("취소",listener)
+            builder.setPositiveButton("삭제",listener)
+            builder.show()
+
+            false
+        }
+    }
+    fun contactDelete(holder: GridViewHolder, position: Int){
         holder.itemView.setOnLongClickListener{
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("삭제")
@@ -141,6 +165,7 @@ class ContactAdapter(private val listType: Boolean = false) :
         }
 
     }
+
 
     // 공통된 뷰홀더를 하나 더 만들고 난 후 이너클래스 뷰 홀더를 두개를 상속받아서 온 바인드 뷰홀더에서 공통 뷰홀더를 사용
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
