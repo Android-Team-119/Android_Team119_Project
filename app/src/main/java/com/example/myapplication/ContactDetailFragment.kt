@@ -14,6 +14,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import android.provider.ContactsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,13 +28,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.isGone
+import androidx.recyclerview.widget.RecyclerView
 import androidx.core.content.ContextCompat
 import com.example.myapplication.data.Contact
+import com.example.myapplication.databinding.ContactlistItemGridBinding
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 @Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment() {
+     private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
     private lateinit var binding:FragmentContactDetailBinding
@@ -110,11 +117,31 @@ class ContactDetailFragment : Fragment() {
         binding.phoneNumberDetail.text = selectedContact.phone
         binding.emailDetail.text = selectedContact.email
 
-
         binding.fiveMinBtn.setOnClickListener{
-                Handler().postDelayed({
-                    notification(selectedContact.name)
-                },5000)
+            //5분 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 5초 구현(시연을 위해 5초로 설정)
+                notification(selectedContact.name)
+            },5000)
+        }
+
+        binding.thirtyMinBtn.setOnClickListener{
+            //30분 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 30분 구현
+                notification(selectedContact.name)
+            },1800000)
+        }
+        binding.oneHourBtn.setOnClickListener{
+            //1시간 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 30분 구현
+                notification(selectedContact.name)
+            },3600000)
+        }
+        binding.offBtn.setOnClickListener{
+            //off버튼이 눌렸을 때 handler안 콜백과 메세지 초기화
+            handler.removeCallbacksAndMessages(null)
         }
 
 
@@ -180,6 +207,26 @@ class ContactDetailFragment : Fragment() {
         }
         manager.notify(11,builder.build())
     }
+//    inner class FiveMinAlarmThread: Thread() {
+//        private var time = 0
+//        private var name = arguments?.getParcelable<Contact>("selectedContact")?.name.toString()
+//        override fun run() {
+//            while(handlerThread.isAlive){
+//                //HandlerThread가 살아있는동안 실행
+//                Handler(handlerThread.looper).post{
+//                    sleep(5000)
+//                    notification(name)
+//                    handlerThread.quitSafely()
+//                    stopThread()
+//                }
+//            }
+//        }
+//        fun stopThread(){
+//            fiveMinAlarmThread = null
+//        }
+//
+//    }
+
 
     // 다이얼로그에서 퍼미션 허용했는지 확인
     override fun onRequestPermissionsResult(

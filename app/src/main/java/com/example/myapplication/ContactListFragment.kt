@@ -50,16 +50,16 @@ class ContactListFragment : Fragment() {
                                 dialog.testContact = object: AddNumberDialog.InputContact{
 
                                     override fun setContect(contact: Contact) {
-                                        ContactManager.addContact(contact)//전역변수에 값 저장
+//                                        ContactManager.addContact(contact)//전역변수에 값 저장
                                         listAdapter.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
-                                        listAdapterGrid.addcontact(contact)
+//                                        listAdapterGrid.addcontact(contact)
                                     }
                                 }
                             }else if(statusCheck){
                                 dialog.testContact = object :AddNumberDialog.InputContact{
                                     override fun setContect(contact: Contact) {
-                                        ContactManager.addContact(contact)//전역변수에 값 저장
-                                        listAdapter.addcontact(contact)
+//                                        ContactManager.addContact(contact)//전역변수에 값 저장
+//                                        listAdapter.addcontact(contact)
                                         listAdapterGrid.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
                                     }
                                 }
@@ -121,7 +121,6 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initGridView()
         initView()
 
     }
