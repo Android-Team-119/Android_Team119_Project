@@ -17,25 +17,15 @@ import com.example.myapplication.databinding.ContactlistItemGridBinding
 
 class ContactAdapter() :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-    private var contactList = ContactManager.getContactList()
-    interface Item {
+    var contactList = ContactManager.getContactList().toMutableList()
 
-    }
-    var item : Item? = null
-
-    fun additem(contact: Contact?) {
-        if (contact == null) {
-            return
-        }
-        Log.d("ittest", "$contactList")
-//        ContactManager.addContact(contact)
+    fun addcontact(contact: Contact){
         contactList.add(contact)
-        Log.d("it", "$contactList")
-
-//        this.notifyItemInserted(contactList.size -1)
+        Log.d("it","$contactList")
         notifyDataSetChanged()
-
     }
+
+
     fun deleteContact(phone: String){
         ContactManager.deleteContactById(phone)
         notifyDataSetChanged()

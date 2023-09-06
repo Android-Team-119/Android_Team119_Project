@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,16 +36,14 @@ class ContactListFragment : Fragment() {
                     when(it.itemId) {
                         R.id.add_item -> {
                             val dialog = AddNumberDialog()
-                            val adapter = ContactAdapter()
+
                             dialog.testContact = object: AddNumberDialog.InputContact{
                                 override fun setContect(contact: Contact) {
-                                    ContactManager.addContact(contact)
-                                    listAdapter.notifyDataSetChanged()
-//                                    adapter.additem(contact)
+                                    ContactManager.addContact(contact)//전역변수에 값 저장
+                                    listAdapter.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
                                     }
-//                                    ContactAdapter().additem(contact)
 
-                                }
+                            }
                             dialog.show(childFragmentManager, "AddNumberDialog")
                             true
                         }

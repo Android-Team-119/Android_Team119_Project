@@ -68,10 +68,10 @@ class AddNumberDialog: DialogFragment() {
     }
     private fun initView(){
         with(binding){
-            checkEditBox()
-            onPressSaveBtn()
-            onPressCancelBtn()
-            onPressImgView()
+            checkEditBox() //EditBox 유효성 검사
+            onPressSaveBtn() // 저장버튼 눌렀을 때 전역변수에 저장
+            onPressCancelBtn()// 취소버튼 눌렀을 때 Dialog종료
+            onPressImgView()// ImgView 눌렀을때 갤러리에서 사진선택
 
         }
     }
