@@ -24,12 +24,12 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
 //    private val listAdapter by lazy{
 //        ContactAdapter()
 //    }
-    private var statusCheck = false
+    var statusCheck = false
 
-    private val listAdapter by lazy{
+    val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-    private val listAdapterGrid by lazy{
+    val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
 
