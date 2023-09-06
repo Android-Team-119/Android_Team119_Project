@@ -1,7 +1,10 @@
 package com.example.myapplication.data
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import android.util.Log
-import com.example.myapplication.ContactAdapter
 
 object ContactManager {
 
@@ -60,6 +63,26 @@ object ContactManager {
     }
     fun updateIsLike(position:Int, like:Boolean) {
         contactList[position].isLike = !like
+    }
+
+    @SuppressLint("DiscouragedApi")
+    fun getDrawableUri(context: Context, drawableName: String): Uri? {
+        val resourceId = context.resources.getIdentifier(
+            drawableName,
+            "drawable",
+            context.packageName
+        )
+
+        if (resourceId == 0) {
+            Log.e("DrawableUriParser", "Drawable not found with name: $drawableName")
+            return null
+        }
+
+        return Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(context.packageName)
+            .path(resourceId.toString())
+            .build()
     }
 }
 
