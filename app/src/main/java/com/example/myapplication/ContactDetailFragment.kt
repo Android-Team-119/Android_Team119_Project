@@ -32,17 +32,23 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.data.Contact
 import com.example.myapplication.databinding.ContactlistItemGridBinding
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
+import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 
-@Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment() {
-     private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
+    private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
     private lateinit var binding:FragmentContactDetailBinding
+    var dataUpdateListener: DataUpdateListener?= null
+
+    private fun addData(contact:Contact){
+        dataUpdateListener?.onDataUpdated(contact)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +61,7 @@ class ContactDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-          Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
         }
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
@@ -92,8 +98,10 @@ class ContactDetailFragment : Fragment() {
                     // val photoURI = cursor.getString(2)
                     // val id = cursor.getString(3)
                     Toast.makeText(requireContext(), "$name, $phone", Toast.LENGTH_SHORT).show()
-                    var content = Contact(null, name, phone, "없음", false)
-                    ContactAdapter().addcontact(content)
+                    var contect = Contact(null, name, phone, "없음", false)
+                   addData(contect)
+
+
                 }
             }
         }

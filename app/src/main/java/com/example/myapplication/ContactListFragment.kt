@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,31 +11,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
-import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
 
     private lateinit var binding: ContactlistFragmentBinding
-//    private val listAdapter by lazy{
-//        ContactAdapter()
-//    }
-    private var statusCheck = false
 
-    private val listAdapter by lazy{
+    var statusCheck = false
+
+    val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-    private val listAdapterGrid by lazy{
+    val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ContactlistFragmentBinding.inflate(inflater, container, false)
-
         binding.run {
             listToolbar.run {
                 // 제목 설정
@@ -115,6 +110,7 @@ class ContactListFragment : Fragment() {
             binding.recyclerView.smoothScrollToPosition(0)
         }
 
+
         return binding.root
 
     }
@@ -124,6 +120,7 @@ class ContactListFragment : Fragment() {
         initView()
 
     }
+
     private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -145,6 +142,11 @@ class ContactListFragment : Fragment() {
 //
 //        val adapter = ContactAdapter()
 //        recyclerView.adapter = adapter
+    }
+
+    override fun onDataUpdated(Contact: Contact) {
+        listAdapter.addcontact(Contact)
+        listAdapter.notifyDataSetChanged()
     }
 
 
