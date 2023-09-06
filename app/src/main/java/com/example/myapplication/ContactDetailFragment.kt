@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -19,21 +18,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.isGone
 import com.example.myapplication.data.Contact
 import com.example.myapplication.databinding.FragmentContactDetailBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
-private lateinit var binding:FragmentContactDetailBinding
+
 
 @Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment() {
     private var mActivity: MainActivity?= null
+    lateinit var requestLauncher: ActivityResultLauncher<Intent>
+    private lateinit var binding:FragmentContactDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +43,11 @@ class ContactDetailFragment : Fragment() {
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
           Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
-
-
         }
 
+        binding.phoneBookDetail.setOnClickListener {
+
+        }
 
         val contact = Contact(null, "디폴트 네임", "010-0000-0000", "email@email.com", false)
         var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
@@ -58,6 +55,7 @@ class ContactDetailFragment : Fragment() {
         if(selectedContact==null){
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
+            binding.linearLayoutAlertBtn.visibility = View.GONE
         }
 
         binding.nameDetail.text = selectedContact.name
@@ -69,9 +67,6 @@ class ContactDetailFragment : Fragment() {
                 Handler().postDelayed({
                     notification(selectedContact.name)
                 },5000)
-
-
-
         }
 
 
