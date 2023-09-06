@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,15 +12,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
-import com.example.myapplication.databinding.ContactlistItemGridBinding
 
-class ContactAdapter() :
+class ContactAdapter(private val gridType: Boolean = false) :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
     private var contactList = ContactManager.getContactList()
     interface Item {
 
     }
     var item : Item? = null
+
+    companion object{
+        const val LIST_POSITION = false
+        const val GRID_POSITION = true
+    }
 
     fun additem(contact: Contact?) {
         if (contact == null) {
@@ -41,6 +44,11 @@ class ContactAdapter() :
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        if (!gridType){
+            R.layout.contactlist_item
+        }else{
+            R.layout.contactlist_item_grid
+        }
         val binding = ContactlistItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false
