@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +15,17 @@ import com.example.myapplication.databinding.ContactlistFragmentBinding
 class ContactListFragment : Fragment() {
 
     private lateinit var binding: ContactlistFragmentBinding
-    private val listAdapter by lazy{
-        ContactAdapter(listType = true)
-    }
+//    private val listAdapter by lazy{
+//        ContactAdapter()
+//    }
+    private var statusCheck = false
 
-    private val listAdapter2 by lazy {
+    private val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-
-    var isGrid = true
+    private val listAdapterGrid by lazy{
+        ContactAdapter(listType = true)
+    }
 
 
     override fun onCreateView(
@@ -42,35 +45,36 @@ class ContactListFragment : Fragment() {
                     when(it.itemId) {
                         R.id.add_item -> {
                             val dialog = AddNumberDialog()
+                            if(!statusCheck){
+                                dialog.testContact = object: AddNumberDialog.InputContact{
 
-                            if (isGrid == false) {
-                            dialog.testContact = object: AddNumberDialog.InputContact {
-                                override fun setContect(contact: Contact) {
-                                    ContactManager.addContact(contact)//전역변수에 값 저장
-                                    listAdapter.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
-                                }
-                            }
-
-                            }
-                            else {
-                                dialog.testContact = object: AddNumberDialog.InputContact {
                                     override fun setContect(contact: Contact) {
                                         ContactManager.addContact(contact)//전역변수에 값 저장
-                                        listAdapter2.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
+                                        listAdapter.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
+                                        listAdapterGrid.addcontact(contact)
+                                    }
+                                }
+                            }else if(statusCheck){
+                                dialog.testContact = object :AddNumberDialog.InputContact{
+                                    override fun setContect(contact: Contact) {
+                                        ContactManager.addContact(contact)//전역변수에 값 저장
+                                        listAdapter.addcontact(contact)
+                                        listAdapterGrid.addcontact(contact)//listAdapter에 저장된 변수에 값 저장
                                     }
                                 }
                             }
+
                             dialog.show(childFragmentManager, "AddNumberDialog")
                             true
                         }
                         R.id.list_item -> {
                             initView()
-                            isGrid = false
+                            statusCheck = false
                             true
                         }
                         R.id.grid_item -> {
                             initGridView()
-                            isGrid = true
+                            statusCheck = true
                             true
                         }
 
@@ -88,14 +92,14 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initGridView()
         initView()
-
 
     }
     private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = listAdapter2//ContactAdapter(listType = false) //
+        recyclerView.adapter = listAdapter
 
 //        val recyclerView = binding.recyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -106,7 +110,7 @@ class ContactListFragment : Fragment() {
     private fun initGridView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
-        recyclerView.adapter = listAdapter//ContactAdapter(listType = true)//
+        recyclerView.adapter = listAdapterGrid
 
 //        val recyclerView = binding.recyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())

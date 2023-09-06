@@ -20,7 +20,6 @@ class ContactAdapter(private val listType: Boolean = false) :
 
     fun addcontact(contact: Contact){
         contactList.add(contact)
-        Log.d("it","$contactList")
         notifyDataSetChanged()
     }
 
