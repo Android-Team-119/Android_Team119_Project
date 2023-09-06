@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.data.Contact
-import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.DialogAddNumberBinding
 import java.lang.NumberFormatException
 import java.util.regex.Pattern
@@ -26,6 +25,12 @@ import java.util.regex.Pattern
 class AddNumberDialog: DialogFragment() {
     private var _binding: DialogAddNumberBinding? = null
     private var selectedImageUri: Uri?= null
+    interface InputContact{//Contact를 넣는 함수에 대한 인터페이스
+        fun setContect(contact: Contact)//Contact세팅 함수
+    }
+
+    var testContact : InputContact? = null//인터페이스를 사용하기위한 변수 지정
+
     private val binding get() = _binding!!
     private val email =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -63,10 +68,10 @@ class AddNumberDialog: DialogFragment() {
     }
     private fun initView(){
         with(binding){
-            checkEditBox()
-            onPressSaveBtn()
-            onPressCancelBtn()
-            onPressImgView()
+            checkEditBox() //EditBox 유효성 검사
+            onPressSaveBtn() // 저장버튼 눌렀을 때 전역변수에 저장
+            onPressCancelBtn()// 취소버튼 눌렀을 때 Dialog종료
+            onPressImgView()// ImgView 눌렀을때 갤러리에서 사진선택
 
         }
     }
@@ -95,7 +100,8 @@ class AddNumberDialog: DialogFragment() {
                 }else if(selectedImageUri == null){
                     Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    ContactListFragment().setContact(
+                    //setcontect 인자 넘김
+                   testContact?.setContect(
                         Contact(
                             selectedImageUri!!,
                             inputName.text.toString(),
@@ -106,7 +112,6 @@ class AddNumberDialog: DialogFragment() {
                     )
 
                     dismiss()
-
                 }
             }
         }
