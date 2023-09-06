@@ -2,10 +2,6 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.animation.AlphaAnimation
-import android.widget.Toast
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -38,15 +34,5 @@ class MainActivity : AppCompatActivity() {
             mainBinding.mainViewPager,
             { tab, position -> tab.text = tabTitles[position] }).attach()
 
-        // 플로팅 버튼 fade
-        val fadeIn = AlphaAnimation(0f, 1f).apply { duration = 500 }
-        val fadeOut = AlphaAnimation(1f, 0f).apply { duration = 500 }
-        var floatTop = true
-
-        // Floating 버튼 클릭 리스너
-        //mainBinding.mainFloatBtn.setOnClickListener {
-        //Toast.makeText(this@MainActivity, "Floating Button", Toast.LENGTH_SHORT).show()
-
-        //}
     }
 }
