@@ -57,7 +57,15 @@ class ContactDetailFragment : Fragment() {
         binding.messageBtnDetail.setOnClickListener {
             val fragmentManager = requireActivity().supportFragmentManager
             val dialog = UpdateNumberDialog()
-          Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+
+            dialog.testContact = object : UpdateNumberDialog.InputContact {
+                override fun setContact(contact: Contact) {
+                    // 수정된 정보를 받아서 처리
+                    updateContactInfo(contact)
+                }
+            }
+
+            dialog.show(fragmentManager, "UpdateNumberDialog")
         }
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
@@ -70,12 +78,7 @@ class ContactDetailFragment : Fragment() {
         }
 
             // 다이얼로그(Dialog)에서 수정된 정보를 Fragment로 전달하는 콜백 설정
-            dialog.testContact = object : UpdateNumberDialog.InputContact {
-                override fun setContact(contact: Contact) {
-                    // 수정된 정보를 받아서 처리
-                    updateContactInfo(contact)
-                }
-            }
+
         // ActivityResultLauncher 초기화, 결과 콜백 정의
         requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == AppCompatActivity.RESULT_OK) {
@@ -95,7 +98,7 @@ class ContactDetailFragment : Fragment() {
                 )
                 Log.d("test", "cursor size : ${cursor?.count}")
 
-            dialog.show(fragmentManager, "UpdateNumberDialog")
+
                 if (cursor!!.moveToFirst()) {
                     val name = cursor.getString(0)
                     val phone = cursor.getString(1)
@@ -172,7 +175,7 @@ class ContactDetailFragment : Fragment() {
         binding.phoneNumberDetail.text = updatedContact.phone
         binding.emailDetail.text = updatedContact.email
 
-        contactAdapter.updateContact(updatedContact)
+        ContactAdapter().updateContact(updatedContact)
 
     }
 
