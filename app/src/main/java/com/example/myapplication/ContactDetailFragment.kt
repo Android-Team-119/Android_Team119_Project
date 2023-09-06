@@ -123,12 +123,18 @@ class ContactDetailFragment : Fragment() {
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
             binding.linearLayoutAlertBtn.visibility = View.GONE
-        }
 
-        binding.nameDetail.text = selectedContact.name
-        binding.phoneNumberDetail.text = selectedContact.phone
-        binding.emailDetail.text = selectedContact.email
-        binding.profileImageDetail.setImageURI(selectedContact.image)
+            binding.nameDetail.text = ContactManager.user.name
+            binding.phoneNumberDetail.text = ContactManager.user.phone
+            binding.emailDetail.text = ContactManager.user.email
+            binding.profileImageDetail.setImageURI(ContactManager.user.image)
+        }
+        else {
+            binding.nameDetail.text = selectedContact.name
+            binding.phoneNumberDetail.text = selectedContact.phone
+            binding.emailDetail.text = selectedContact.email
+            binding.profileImageDetail.setImageURI(selectedContact.image)
+        }
 
         binding.fiveMinBtn.setOnClickListener{
             //5분 버튼이 눌렸을 때
