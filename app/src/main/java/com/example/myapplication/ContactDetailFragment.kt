@@ -93,7 +93,6 @@ class ContactDetailFragment : Fragment() {
                     // val id = cursor.getString(3)
                     Toast.makeText(requireContext(), "$name, $phone", Toast.LENGTH_SHORT).show()
                     var content = Contact(null, name, phone, "없음", false)
-                    ContactManager.addContact(content)
                     ContactAdapter().addcontact(content)
                 }
             }
