@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">도와줘요 119</string>
+
+    <!--main page tab layout-->
+    <string name="main_tab_contacts">Contacts</string>
+    <string name="main_tab_mypage">My Page</string>
+
+
     <string name="contact">Contact</string>
     <string name="myPage">MyPage</string>
     <string name="modification">Modification</string>
@@ -14,4 +20,6 @@
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
     <string name="phone_book_input">연락처에서 불러오기</string>
+
+
 </resources>

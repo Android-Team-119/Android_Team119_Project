@@ -23,9 +23,8 @@ object ContactManager {
     )
 
 
-
     //개인 정보 객체
-    var user = Contact(null, "이충환", "010", "1", false)
+    var user = Contact(imageuri2, "이충환", "010", "1", false)
 
     //전화번호 추가
     fun addContact(contact: Contact) {
@@ -68,6 +67,7 @@ object ContactManager {
         contactList[position].isLike = !like
     }
 
+    //position 값을 받아 해당 position의 전화번호를 리턴
     fun getPhoneByPosition(position: Int) : String {
         return contactList[position].phone
     }
