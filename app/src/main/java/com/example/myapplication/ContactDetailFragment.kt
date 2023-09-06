@@ -14,6 +14,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +24,9 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isGone
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
+import com.example.myapplication.databinding.ContactlistItemGridBinding
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -33,7 +37,10 @@ private lateinit var binding:FragmentContactDetailBinding
 
 @Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment() {
-    private var mActivity: MainActivity?= null
+    private var mActivity: MainActivity?= null// Context에 MainActivty를 넣기 위해 만든 함수
+    private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
+    private var statusFiveMinBtn = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,17 +71,32 @@ class ContactDetailFragment : Fragment() {
         binding.phoneNumberDetail.text = selectedContact.phone
         binding.emailDetail.text = selectedContact.email
 
-
         binding.fiveMinBtn.setOnClickListener{
-                Handler().postDelayed({
-                    notification(selectedContact.name)
-                },5000)
-
-
-
+            //5분 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 5초 구현(시연을 위해 5초로 설정)
+                notification(selectedContact.name)
+            },5000)
         }
 
-
+        binding.thirtyMinBtn.setOnClickListener{
+            //30분 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 30분 구현
+                notification(selectedContact.name)
+            },1800000)
+        }
+        binding.oneHourBtn.setOnClickListener{
+            //1시간 버튼이 눌렸을 때
+            handler.postDelayed({
+                //notification 작동. delay 30분 구현
+                notification(selectedContact.name)
+            },3600000)
+        }
+        binding.offBtn.setOnClickListener{
+            //off버튼이 눌렸을 때 handler안 콜백과 메세지 초기화
+            handler.removeCallbacksAndMessages(null)
+        }
         binding.callBtnDetail.setOnClickListener {
             Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
             val tell = "tel:" + selectedContact.phone.split("-").joinToString("")
@@ -137,4 +159,24 @@ class ContactDetailFragment : Fragment() {
         }
         manager.notify(11,builder.build())
     }
+//    inner class FiveMinAlarmThread: Thread() {
+//        private var time = 0
+//        private var name = arguments?.getParcelable<Contact>("selectedContact")?.name.toString()
+//        override fun run() {
+//            while(handlerThread.isAlive){
+//                //HandlerThread가 살아있는동안 실행
+//                Handler(handlerThread.looper).post{
+//                    sleep(5000)
+//                    notification(name)
+//                    handlerThread.quitSafely()
+//                    stopThread()
+//                }
+//            }
+//        }
+//        fun stopThread(){
+//            fiveMinAlarmThread = null
+//        }
+//
+//    }
+
 }
