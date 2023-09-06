@@ -150,6 +150,7 @@ class ContactAdapter(private val listType: Boolean = false) :
         fun bind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)
             binding.nameTextView.text = contact.name
+            binding.profileImageView.setImageURI(contact.image)
         }
     }
 
@@ -158,6 +159,7 @@ class ContactAdapter(private val listType: Boolean = false) :
         fun gridbind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)
             gridBinding.nameGridTextview.text = contact.name
+            gridBinding.profileImageview.setImageURI(contact.image)
         }
     }
 

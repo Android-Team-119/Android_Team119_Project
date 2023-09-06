@@ -63,6 +63,7 @@ class ContactDetailFragment : Fragment() {
         binding.nameDetail.text = selectedContact.name
         binding.phoneNumberDetail.text = selectedContact.phone
         binding.emailDetail.text = selectedContact.email
+        binding.profileImageDetail.setImageURI(selectedContact.image)
 
 
         binding.fiveMinBtn.setOnClickListener{
