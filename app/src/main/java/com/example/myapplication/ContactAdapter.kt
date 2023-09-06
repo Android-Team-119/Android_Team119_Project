@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +14,8 @@ import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
 import com.example.myapplication.databinding.ContactlistItemGridBinding
 
-class ContactAdapter() :
-    RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+class ContactAdapter(private val listType: Boolean = false) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var contactList = ContactManager.getContactList().toMutableList()
 
     fun addcontact(contact: Contact){
@@ -30,35 +29,69 @@ class ContactAdapter() :
         ContactManager.deleteContactById(phone)
         notifyDataSetChanged()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        /*
         val binding = ContactlistItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding)*/
+        return if(!listType){
+            val binding = ContactlistItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+            ViewHolder(binding)
+        }else{
+            val gridBinding = ContactlistItemGridBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+            GridViewHolder(gridBinding)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         Log.d("this","")
         val contact = contactList[position]
-        holder.bind(contact)
-        holder.itemView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable("selectedContact",contact)
+        if (holder is ViewHolder){
+            holder.bind(contact)
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("selectedContact",contact)
 
-            val contactDetailFragment = ContactDetailFragment()
+                val contactDetailFragment = ContactDetailFragment()
 
-            contactDetailFragment.arguments = bundle
+                contactDetailFragment.arguments = bundle
 
-            // Fragment 전환
-            val fragmentManager = (it.context as AppCompatActivity).supportFragmentManager
-            fragmentManager.beginTransaction()
-                .replace(R.id.frag_container, contactDetailFragment)
-                .addToBackStack(null)
-                .commit()
+                // Fragment 전환
+                val fragmentManager = (it.context as AppCompatActivity).supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.frag_container, contactDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            contactDelete(holder,position)
+            favClicked(holder,position)
+        }else if(holder is GridViewHolder){
+            holder.gridbind(contact)
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("selectedContact",contact)
+
+                val contactDetailFragment = ContactDetailFragment()
+
+                contactDetailFragment.arguments = bundle
+
+                // Fragment 전환
+                val fragmentManager = (it.context as AppCompatActivity).supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.frag_container, contactDetailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
-        contactDelete(holder,position)
-        favClicked(holder,position)
+
 
     }
 
@@ -67,7 +100,6 @@ class ContactAdapter() :
         return contactList.size
     }
     fun contactDelete(holder: ViewHolder, position: Int){
-
         holder.itemView.setOnLongClickListener{
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("삭제")
@@ -111,16 +143,22 @@ class ContactAdapter() :
 
     }
 
-
+    // 공통된 뷰홀더를 하나 더 만들고 난 후 이너클래스 뷰 홀더를 두개를 상속받아서 온 바인드 뷰홀더에서 공통 뷰홀더를 사용
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val favbtn = binding.likeImageButton
 
-
-
         fun bind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)
             binding.nameTextView.text = contact.name
+        }
+    }
+
+    inner class GridViewHolder(private val gridBinding: ContactlistItemGridBinding) :
+        RecyclerView.ViewHolder(gridBinding.root) {
+        fun gridbind(contact: Contact) {
+//            binding.profileImageView.setImageResource(contact.image)
+            gridBinding.nameGridTextview.text = contact.name
         }
     }
 
