@@ -67,5 +67,9 @@ object ContactManager {
         contactList[position].isLike = !like
     }
 
+    fun getPhoneByPosition(position: Int) : String {
+        return contactList[position].phone
+    }
+
 }
 

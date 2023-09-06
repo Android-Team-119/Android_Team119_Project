@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
@@ -85,7 +89,7 @@ class ContactListFragment : Fragment() {
                 }
             }
         }
-
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
         return binding.root
 
     }
@@ -118,6 +122,44 @@ class ContactListFragment : Fragment() {
 //        val adapter = ContactAdapter()
 //        recyclerView.adapter = adapter
     }
+
+    private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        0,
+        ItemTouchHelper.RIGHT
+    ) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val phoneNum = ContactManager.getPhoneByPosition(position)
+            val phoneNumToString = "tel:" + phoneNum.split("-").joinToString("")
+            val callIntent = Intent(Intent.ACTION_DIAL,Uri.parse(phoneNumToString))
+            startActivity(callIntent)
+            listAdapter.notifyItemChanged(viewHolder.adapterPosition)
+        }
+
+//        override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+//            //return super.getSwipeEscapeVelocity(defaultValue)
+//            return defaultValue * 20
+//        }
+
+        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+            return 0.3f
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+
+            Log.d("clear", "clearview")
+        }
+
+    })
 
 
 }
