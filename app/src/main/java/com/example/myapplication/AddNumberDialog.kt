@@ -97,14 +97,13 @@ class AddNumberDialog: DialogFragment() {
                     inputNumberLayout.error="전화번호를 입력해주세요"
                 }else if(inputEmail.text!!.isEmpty()){
                     inputEmailLayout.error="이메일을 입력해주세요"
-//                }else if(selectedImageUri == null){
-//                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
+                }else if(selectedImageUri == null){
+                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
                 }else{
                     //setcontect 인자 넘김
                    testContact?.setContect(
                         Contact(
-                            null,
-//                            selectedImageUri!!,
+                            selectedImageUri!!,
                             inputName.text.toString(),
                             inputNumber.text.toString(),
                             inputEmail.text.toString(),
