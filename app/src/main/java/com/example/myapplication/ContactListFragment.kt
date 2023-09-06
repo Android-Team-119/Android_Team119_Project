@@ -1,11 +1,11 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
@@ -15,7 +15,7 @@ class ContactListFragment : Fragment() {
 
     private lateinit var binding: ContactlistFragmentBinding
     private val listAdapter by lazy{
-        ContactAdapter()
+        ContactAdapter(listType = true)
     }
 
 
@@ -48,9 +48,11 @@ class ContactListFragment : Fragment() {
                             true
                         }
                         R.id.list_item -> {
+                            initView()
                             true
                         }
                         R.id.grid_item -> {
+                            initGridView()
                             true
                         }
 
@@ -75,7 +77,18 @@ class ContactListFragment : Fragment() {
     private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = listAdapter
+        recyclerView.adapter = listAdapter//ContactAdapter(listType = false) //
+
+//        val recyclerView = binding.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//
+//        val adapter = ContactAdapter()
+//        recyclerView.adapter = adapter
+    }
+    private fun initGridView() = with(binding){
+        // RecyclerView 초기화 및 어댑터 설정
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
+        recyclerView.adapter = listAdapter//ContactAdapter(listType = true)//
 
 //        val recyclerView = binding.recyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())
