@@ -1,35 +1,45 @@
 package com.example.myapplication
 
 import android.os.Build
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
 class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
 
     private lateinit var binding: ContactlistFragmentBinding
+//    private val listAdapter by lazy{
+//        ContactAdapter()
+//    }
+    private var statusCheck = false
 
-    var statusCheck = false
-
-    val listAdapter by lazy{
+    private val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-    val listAdapterGrid by lazy{
+    private val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ContactlistFragmentBinding.inflate(inflater, container, false)
+
         binding.run {
             listToolbar.run {
                 // 제목 설정
@@ -81,6 +91,7 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
                 }
             }
         }
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
         // 플로팅 버튼 fade
         val fadeIn = AlphaAnimation(0f, 1f).apply { duration = 500 }
@@ -110,7 +121,6 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
             binding.recyclerView.smoothScrollToPosition(0)
         }
 
-
         return binding.root
 
     }
@@ -120,7 +130,6 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
         initView()
 
     }
-
     private fun initView() = with(binding){
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -143,6 +152,44 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
 //        val adapter = ContactAdapter()
 //        recyclerView.adapter = adapter
     }
+
+    private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        0,
+        ItemTouchHelper.RIGHT
+    ) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val phoneNum = ContactManager.getPhoneByPosition(position)
+            val phoneNumToString = "tel:" + phoneNum.split("-").joinToString("")
+            val callIntent = Intent(Intent.ACTION_DIAL,Uri.parse(phoneNumToString))
+            startActivity(callIntent)
+            listAdapter.notifyItemChanged(viewHolder.adapterPosition)
+        }
+
+//        override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+//            //return super.getSwipeEscapeVelocity(defaultValue)
+//            return defaultValue * 20
+//        }
+
+        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+            return 0.3f
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+
+            Log.d("clear", "clearview")
+        }
+
+    })
 
     override fun onDataUpdated(Contact: Contact) {
         listAdapter.addcontact(Contact)
