@@ -30,6 +30,14 @@ class ContactAdapter() :
         ContactManager.deleteContactById(phone)
         notifyDataSetChanged()
     }
+
+    fun updateContact(updatedContact: Contact) {
+        val position = contactList.indexOfFirst { it.phone == updatedContact.phone }
+        if (position != -1) {
+            contactList[position] = updatedContact
+            notifyItemChanged(position)
+        }
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ContactlistItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -110,7 +118,6 @@ class ContactAdapter() :
         }
 
     }
-
 
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

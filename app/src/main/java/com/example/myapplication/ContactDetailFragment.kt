@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 private lateinit var binding:FragmentContactDetailBinding
+private val contactAdapter = ContactAdapter()
 
 class ContactDetailFragment : Fragment() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +28,23 @@ class ContactDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-          Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+            val fragmentManager = requireActivity().supportFragmentManager
+            val dialog = UpdateNumberDialog()
 
+            // 다이얼로그(Dialog)에서 수정된 정보를 Fragment로 전달하는 콜백 설정
+            dialog.testContact = object : UpdateNumberDialog.InputContact {
+                override fun setContact(contact: Contact) {
+                    // 수정된 정보를 받아서 처리
+                    updateContactInfo(contact)
+                }
+            }
 
+            dialog.show(fragmentManager, "UpdateNumberDialog")
         }
         binding.callBtnDetail.setOnClickListener {
             Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
@@ -51,4 +66,17 @@ class ContactDetailFragment : Fragment() {
 
         return binding.root
     }
+
+    fun updateContactInfo(updatedContact: Contact) {
+        ContactManager.updateContact(updatedContact)
+
+        binding.nameDetail.text = updatedContact.name
+        binding.phoneNumberDetail.text = updatedContact.phone
+        binding.emailDetail.text = updatedContact.email
+
+        contactAdapter.updateContact(updatedContact)
+
+    }
+
+
 }
