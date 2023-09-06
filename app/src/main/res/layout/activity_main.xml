@@ -29,23 +29,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <!-- FloatingBtn -->
-            <!--
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/main_floatBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:contentDescription="Add Tel"
-                android:scaleType="centerCrop"
-                android:src="@drawable/main_uparrow_icon"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/main_tabLayout"
-                app:layout_constraintEnd_toEndOf="parent" />
-                -->
-
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/main_tabLayout"
                 android:layout_width="0dp"
