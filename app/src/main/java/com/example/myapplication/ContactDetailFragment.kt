@@ -50,11 +50,7 @@ class ContactDetailFragment : Fragment() {
 
 
         }
-        binding.callBtnDetail.setOnClickListener {
-            Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
-            val callIntent = Intent(Intent.ACTION_DIAL)
-            startActivity(callIntent)
-        }
+
 
         val contact = Contact(null, "디폴트 네임", "010-0000-0000", "email@email.com", false)
         var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
@@ -76,6 +72,14 @@ class ContactDetailFragment : Fragment() {
 
 
 
+        }
+
+
+        binding.callBtnDetail.setOnClickListener {
+            Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
+            val tell = "tel:" + selectedContact.phone.split("-").joinToString("")
+            val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse(tell))
+            startActivity(callIntent)
         }
 
         return binding.root
