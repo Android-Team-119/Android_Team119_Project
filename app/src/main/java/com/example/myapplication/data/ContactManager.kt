@@ -1,5 +1,8 @@
 package com.example.myapplication.data
 
+import android.util.Log
+import com.example.myapplication.ContactAdapter
+
 object ContactManager {
 
     //예제 데이터
@@ -47,14 +50,16 @@ object ContactManager {
     }
 
     //모든 연락처를 return
-    fun getContactList(): List<Contact> {
-        return contactList.toList()
+    fun getContactList(): MutableList<Contact> {
+        return contactList
     }
 
     //user 데이터 업데이트
     fun updateUser(updatedUser: Contact) {
         user = updatedUser
     }
-
+    fun updateIsLike(position:Int, like:Boolean) {
+        contactList[position].isLike = !like
+    }
 }
 
