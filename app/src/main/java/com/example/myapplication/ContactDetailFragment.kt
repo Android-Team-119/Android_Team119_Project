@@ -76,23 +76,6 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
         binding.pagebackBtn.setOnClickListener {
             onbackPressed()
         }
-        // 수정 버튼 클릭 리스너
-        binding.updateBtn.setOnClickListener {
-            val fragmentManager = requireActivity().supportFragmentManager
-            val test = selectedContact
-            val position = selectedPositition
-
-            val updateNumberDialog = UpdateNumberDialog.newInstance(test!!,position!!)
-            updateNumberDialog.testContact = object : UpdateNumberDialog.EditContact {
-                override fun editContact(contact: Contact,position:Int) {
-                    // 수정된 정보를 받아서 처리
-                    updateContactInfo(contact,position)
-//                    ContactManager.editContact(position,contact)
-                }
-            }
-            updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
-
-        }
 
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
