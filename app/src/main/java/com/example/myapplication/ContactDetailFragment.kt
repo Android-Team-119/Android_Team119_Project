@@ -41,7 +41,7 @@ import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import kotlin.properties.Delegates
 
 @Suppress("DEPRECATION")
-class ContactDetailFragment : Fragment() {
+class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
      private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
@@ -73,6 +73,14 @@ class ContactDetailFragment : Fragment() {
 
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
+
+        }
+        // 뒤로가기 버튼 클릭 리스너
+        binding.pagebackBtn.setOnClickListener {
+            onbackPressed()
+        }
+        // 수정 버튼 클릭 리스너
+        binding.updateBtn.setOnClickListener {
             val fragmentManager = requireActivity().supportFragmentManager
             val test = selectedContact
             val position = selectedPositition
@@ -88,15 +96,6 @@ class ContactDetailFragment : Fragment() {
             updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
             Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
 
-
-            dialog.show(fragmentManager, "UpdateNumberDialog")
-        }
-        // 뒤로가기 버튼 클릭 리스너
-        binding.pagebackBtn.setOnClickListener {
-
-        }
-        // 수정 버튼 클릭 리스너
-        binding.updateBtn.setOnClickListener {
 
         }
 
@@ -156,19 +155,16 @@ class ContactDetailFragment : Fragment() {
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
             binding.linearLayoutAlertBtn.visibility = View.GONE
-        }
 
-            binding.nameDetail.text = ContactManager.user.name
-            binding.phoneNumberDetail.text = ContactManager.user.phone
-            binding.emailDetail.text = ContactManager.user.email
-            binding.profileImageDetail.setImageURI(ContactManager.user.image)
-        }
-        else {
+        }else {
             binding.nameDetail.text = selectedContact.name
             binding.phoneNumberDetail.text = selectedContact.phone
             binding.emailDetail.text = selectedContact.email
             binding.profileImageDetail.setImageURI(selectedContact.image)
+            binding.linearLayoutPhoneBook.visibility = View.GONE
+            binding.pagebackBtn.visibility=View.VISIBLE
         }
+
 
         binding.fiveMinBtn.setOnClickListener{
             //5분 버튼이 눌렸을 때
@@ -286,4 +282,11 @@ class ContactDetailFragment : Fragment() {
             Log.d("test", "permission denied")
         }
     }
+
+    override fun onbackPressed() {
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+    }
+
+
+
 }

@@ -10,12 +10,16 @@ import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+    interface onBackPressedLisener {
+        fun onbackPressed()
+    }
 
     // 뷰 바인딩
     private lateinit var mainBinding: ActivityMainBinding
-    val viewpagerFragmentAdapter  by lazy{
+    val viewpagerFragmentAdapter by lazy {
         ViewPagerFragmentAdapter(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         // FragmentStateAdapter 생성
         viewpagerFragmentAdapter
         val contactDetailFragment = viewpagerFragmentAdapter.getDetailFragment()
-        Log.d("fragment","${viewpagerFragmentAdapter.getDetailFragment()}")
+        Log.d("fragment", "${viewpagerFragmentAdapter.getDetailFragment()}")
         contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
             override fun onDataUpdated(contact: Contact) {
                 Log.d("losttest", "$contact")
@@ -36,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     contactListFragment.listAdapterGrid.addcontact(contact)
                 }
             }
+
             override fun updateContact(contact: Contact, position: Int) {
                 Log.d("test3", "$contact")
                 val contactListFragment = viewpagerFragmentAdapter.getListFragment()
@@ -49,10 +54,11 @@ class MainActivity : AppCompatActivity() {
         // ViewPager2의 adapter 설정
         mainBinding.mainViewPager.adapter = viewpagerFragmentAdapter
         val contactListFragment = viewpagerFragmentAdapter.getListFragment().listAdapter
-        Log.d("fragment","${viewpagerFragmentAdapter.getDetailFragment()}")
+        Log.d("fragment", "${viewpagerFragmentAdapter.getDetailFragment()}")
         contactListFragment.dataUpdateListener = object : DataUpdateListener {
             override fun onDataUpdated(contact: Contact) {
             }
+
             override fun updateContact(contact: Contact, position: Int) {
                 Log.d("test3", "$contact")
                 val contactListFragment = viewpagerFragmentAdapter.getListFragment()
@@ -74,4 +80,16 @@ class MainActivity : AppCompatActivity() {
             { tab, position -> tab.text = tabTitles[position] }).attach()
     }
 
+    override fun onBackPressed() {
+        val fragmentList = supportFragmentManager.fragments
+        for (fragment in fragmentList) {
+            if (fragment is onBackPressedLisener) {
+                (fragment as onBackPressedLisener).onbackPressed()
+                return
+            }
+
+            super.onBackPressed()
+        }
+
+    }
 }
