@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">도와줘요 119</string>
+    <string name="app_name">연락의 민족</string>
 
     <!--main page tab layout-->
     <string name="main_tab_contacts">Contacts</string>
@@ -22,14 +22,14 @@
     <string name="modification">Modification</string>
     <string name="message">Message</string>
     <string name="call">Call</string>
-    <string name="mobile">Mobile</string>
+    <string name="mobile">Tel</string>
     <string name="email">E-mail</string>
     <string name="phone_book_input">연락처에서 불러오기</string>
     <string name="fragment_contact_detail_demo_name">이름</string>
     <string name="fragment_contact_detail_timer_off">Off</string>
     <string name="fragment_contact_detail_timer_5min">5분</string>
     <string name="fragment_contact_detail_timer_30min">30분</string>
-    <string name="fragment_contact_detail_timer_1hour">1시</string>
+    <string name="fragment_contact_detail_timer_1hour">60분</string>
     <string name="fragment_content_detail_mobile_demo">010-1234-8765</string>
     <string name="fragment_contact_detail_email_demo">email@email.com</string>
 

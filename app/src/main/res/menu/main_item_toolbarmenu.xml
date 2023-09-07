@@ -11,6 +11,7 @@
         android:id="@+id/list_item"
         android:enabled="true"
         android:title="리스트로 보기"
+
         app:showAsAction="never"/>
     <item
         android:id="@+id/grid_item"

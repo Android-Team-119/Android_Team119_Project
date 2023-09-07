@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/mainColor">
     <FrameLayout
         android:id="@+id/frag_container"
         android:layout_width="match_parent"
@@ -34,10 +35,13 @@
                 android:id="@+id/main_tabLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/black"
+                android:background="@color/mainColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:tabTextColor="@color/textColor"
+                app:tabSelectedTextColor="@color/white"
+                style="@style/tabLayout">
 
                 <!-- 탭매뉴 두 개 -->
                 <com.google.android.material.tabs.TabItem
@@ -45,7 +49,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/sub_margin"
                     android:text="@string/main_tab_contacts"
-
                     tools:layout_editor_absoluteX="-1dp"
                     tools:layout_editor_absoluteY="689dp" />
 

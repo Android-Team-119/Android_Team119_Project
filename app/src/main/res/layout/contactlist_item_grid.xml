@@ -5,12 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_imageview"
         android:layout_width="@dimen/icon_size_big"
         android:layout_height="@dimen/icon_size_big"
         android:contentDescription="profile img"
+        app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
         android:scaleType="centerCrop"
+        android:background="@color/white"
         android:src="@drawable/dialog_profile_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,18 +23,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/contact_list_item_name"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_imageview" />
-
+<!--
     <View
         android:id="@+id/line_view"
         android:layout_width="@dimen/icon_size_big"
         android:layout_height="2dp"
-        android:layout_marginVertical="2dp"
-        android:background="@color/black"
+        android:background="@color/lineColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"/> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

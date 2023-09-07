@@ -88,8 +88,6 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
                 }
             }
             updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
-            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
-
 
         }
 
@@ -155,7 +153,7 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
             binding.phoneNumberDetail.text = selectedContact.phone
             binding.emailDetail.text = selectedContact.email
             binding.profileImageDetail.setImageURI(selectedContact.image)
-            binding.linearLayoutPhoneBook.visibility = View.GONE
+            binding.phoneBookDetail.visibility = View.GONE
             binding.pagebackBtn.visibility=View.VISIBLE
         }
 
@@ -189,7 +187,6 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
 
 
         binding.callBtnDetail.setOnClickListener {
-            Toast.makeText(context, "call", Toast.LENGTH_SHORT).show()
             val tell = "tel:" + selectedContact.phone.split("-").joinToString("")
             val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse(tell))
             startActivity(callIntent)
@@ -278,7 +275,7 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
     }
 
     override fun onbackPressed() {
-        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        mActivity!!.supportFragmentManager.beginTransaction().remove(this).commit()
     }
 
 
