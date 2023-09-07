@@ -101,9 +101,17 @@ class ContactAdapter(private val listType: Boolean = false) :
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putParcelable("selectedContact",contact)
+                bundle.putInt("position", position)
 
                 val contactDetailFragment = ContactDetailFragment()
-
+                contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
+                    override fun onDataUpdated(contact: Contact) {
+                    }
+                    override fun updateContact(contact: Contact, position: Int) {
+                        Log.d("test2", "$contact")
+                        dataUpdateListener?.updateContact(contact,position)
+                    }
+                }
                 contactDetailFragment.arguments = bundle
 
                 // Fragment 전환
