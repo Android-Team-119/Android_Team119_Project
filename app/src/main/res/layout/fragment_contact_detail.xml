@@ -43,6 +43,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="15dp"
                     android:src="@drawable/contactdetail_back_icon"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <ImageView
