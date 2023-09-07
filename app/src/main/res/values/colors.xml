@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#F3000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="mainColor">#C7495C</color>
     <color name="subColor">#E0908D</color>
     <color name="baseColor">#E0D5BE</color>
     <color name="accentColor">#466A44</color>
     <color name="groundColor">#ededed</color>
+    <color name="coral">#EE8862</color>
+    <color name="recyclerview_background">#FFBF95</color>
 </resources>

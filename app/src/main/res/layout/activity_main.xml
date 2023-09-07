@@ -24,6 +24,7 @@
                 android:id="@+id/main_viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+
                 app:layout_constraintBottom_toTopOf="@+id/main_tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
                 android:id="@+id/main_tabLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -42,7 +44,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/sub_margin"
-                    android:text="@string/main_tab_contacts" />
+                    android:text="@string/main_tab_contacts"
+
+                    tools:layout_editor_absoluteX="-1dp"
+                    tools:layout_editor_absoluteY="689dp" />
 
 
                 <com.google.android.material.tabs.TabItem

@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         }
         // ViewPager2의 adapter 설정
         mainBinding.mainViewPager.adapter = viewpagerFragmentAdapter
+
+
         val contactListFragment = viewpagerFragmentAdapter.getListFragment().listAdapter
             contactListFragment.dataUpdateListener = object : DataUpdateListener {
                 override fun onDataUpdated(contact: Contact) {
