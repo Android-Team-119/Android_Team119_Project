@@ -22,4 +22,10 @@ class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity): FragmentStat
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
+    fun getDetailFragment():ContactDetailFragment{
+        return fragmentList[1] as ContactDetailFragment
+    }
+    fun getListFragment():ContactListFragment{
+        return fragmentList[0] as ContactListFragment
+    }
 }

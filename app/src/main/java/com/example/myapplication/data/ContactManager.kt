@@ -71,6 +71,9 @@ object ContactManager {
     fun getPhoneByPosition(position: Int) : String {
         return contactList[position].phone
     }
+    fun editContact(position:Int, contact: Contact){
+        contactList[position] = contact
+    }
 
 }
 
