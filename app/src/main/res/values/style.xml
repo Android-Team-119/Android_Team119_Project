@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarFont">
+        <item name="android:fontFamily">@font/gmarketsansbold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="tabLayout" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/notosans_semibold</item>
+    </style>
+
+    <style name="RoundedShapeAppearanceOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- 50%로 설정하면 원형 -->
+    </style>
+</resources>

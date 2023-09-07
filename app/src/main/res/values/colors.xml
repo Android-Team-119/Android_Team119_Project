@@ -2,11 +2,16 @@
 <resources>
     <color name="black">#F3000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mainColor">#C7495C</color>
-    <color name="subColor">#E0908D</color>
-    <color name="baseColor">#E0D5BE</color>
-    <color name="accentColor">#466A44</color>
-    <color name="groundColor">#ededed</color>
-    <color name="coral">#EE8862</color>
-    <color name="recyclerview_background">#FFBF95</color>
+    <color name="mainColor">#010101</color>
+    <color name="subColor">#171717</color>
+    <color name="textColor">#999999</color>
+    <color name="lineColor">#333333</color>
+
 </resources>
+
+<!--
+메인 배경색 : #010101
+리사이클러 뷰 배경색: #171717
+글자 배경색: #999999
+구분선 배경색: #333333
+ -->

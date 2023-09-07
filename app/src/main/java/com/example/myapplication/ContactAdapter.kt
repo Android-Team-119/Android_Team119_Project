@@ -184,12 +184,12 @@ class ContactAdapter(private val listType: Boolean = false) :
         val context = holder.itemView.context
         holder.favbtn.setOnClickListener{
             if(contactList[position].isLike == false){
-                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_likebutton_image)
+                val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_like_icon)
                 holder.favbtn.setImageDrawable(img)
                 ContactManager.updateIsLike(position,false)
                 Log.d("test","${contactList}")
             }else{
-                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_unlikebutton_image)
+                val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_likeborder_icon)
                 holder.favbtn.setImageDrawable(img)
                 ContactManager.updateIsLike(position,true)
                 Log.d("test","${contactList}")

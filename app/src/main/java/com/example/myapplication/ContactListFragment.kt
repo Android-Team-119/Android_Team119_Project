@@ -43,9 +43,6 @@ class ContactListFragment : Fragment() {// Viewtype 사용
 
         binding.run {
             listToolbar.run {
-                // 제목 설정
-                title = "도와줘요 119"
-
                 inflateMenu(R.menu.main_item_toolbarmenu)
 
                 setOnMenuItemClickListener {
