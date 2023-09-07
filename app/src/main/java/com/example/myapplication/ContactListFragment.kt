@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.os.Build
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,18 +18,18 @@ import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment() {// Viewtype 사용
 
     private lateinit var binding: ContactlistFragmentBinding
 //    private val listAdapter by lazy{
 //        ContactAdapter()
 //    }
-    private var statusCheck = false
+    var statusCheck = false
 
-    private val listAdapter by lazy{
+    val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-    private val listAdapterGrid by lazy{
+    val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
 
@@ -126,7 +127,6 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initGridView()
         initView()
 
     }
@@ -190,6 +190,7 @@ class ContactListFragment : Fragment() {
         }
 
     })
+
 
 
 }

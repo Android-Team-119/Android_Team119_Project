@@ -32,17 +32,32 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.data.Contact
 import com.example.myapplication.databinding.ContactlistItemGridBinding
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
+import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
+import kotlin.properties.Delegates
 
 @Suppress("DEPRECATION")
-class ContactDetailFragment : Fragment() {
+class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
      private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
     private lateinit var binding:FragmentContactDetailBinding
+    var dataUpdateListener: DataUpdateListener?= null
+
+    private fun addData(contact:Contact){
+        Log.d("losttest!!#$@#!#", "$contact")
+        dataUpdateListener?.onDataUpdated(contact)
+    }
+    private fun updateDate(contact:Contact,position: Int){
+        Log.d("update","$contact"+"$position")
+        dataUpdateListener?.updateContact(contact,position)
+        Log.d("dataUpdateListener","$dataUpdateListener")
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,28 +68,37 @@ class ContactDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
+        var selectedPositition = arguments?.getInt("position")
+
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-            val fragmentManager = requireActivity().supportFragmentManager
-            val dialog = UpdateNumberDialog()
 
-            dialog.testContact = object : UpdateNumberDialog.InputContact {
-                override fun setContact(contact: Contact) {
-                    // 수정된 정보를 받아서 처리
-                    updateContactInfo(contact)
-                }
-            }
-
-            dialog.show(fragmentManager, "UpdateNumberDialog")
         }
         // 뒤로가기 버튼 클릭 리스너
         binding.pagebackBtn.setOnClickListener {
-
+            onbackPressed()
         }
         // 수정 버튼 클릭 리스너
         binding.updateBtn.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            val test = selectedContact
+            val position = selectedPositition
+
+            val updateNumberDialog = UpdateNumberDialog.newInstance(test!!,position!!)
+            updateNumberDialog.testContact = object : UpdateNumberDialog.EditContact {
+                override fun editContact(contact: Contact,position:Int) {
+                    // 수정된 정보를 받아서 처리
+                    updateContactInfo(contact,position)
+//                    ContactManager.editContact(position,contact)
+                }
+            }
+            updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
+            Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+
 
         }
+
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
         if (status == PackageManager.PERMISSION_GRANTED) {
@@ -113,8 +137,8 @@ class ContactDetailFragment : Fragment() {
                     // val photoURI = cursor.getString(2)
                     // val id = cursor.getString(3)
                     Toast.makeText(requireContext(), "$name, $phone", Toast.LENGTH_SHORT).show()
-                    var content = Contact(null, name, phone, "없음", false)
-                    ContactAdapter().addcontact(content)
+                    var contect = Contact(null, name, phone, "없음", false)
+                   addData(contect)
                 }
             }
         }
@@ -125,24 +149,22 @@ class ContactDetailFragment : Fragment() {
         }
 
         val contact = Contact(null, "디폴트 네임", "010-0000-0000", "email@email.com", false)
-        var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
+
 
         if(selectedContact==null){
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
             binding.linearLayoutAlertBtn.visibility = View.GONE
 
-            binding.nameDetail.text = ContactManager.user.name
-            binding.phoneNumberDetail.text = ContactManager.user.phone
-            binding.emailDetail.text = ContactManager.user.email
-            binding.profileImageDetail.setImageURI(ContactManager.user.image)
-        }
-        else {
+        }else {
             binding.nameDetail.text = selectedContact.name
             binding.phoneNumberDetail.text = selectedContact.phone
             binding.emailDetail.text = selectedContact.email
             binding.profileImageDetail.setImageURI(selectedContact.image)
+            binding.linearLayoutPhoneBook.visibility = View.GONE
+            binding.pagebackBtn.visibility=View.VISIBLE
         }
+
 
         binding.fiveMinBtn.setOnClickListener{
             //5분 버튼이 눌렸을 때
@@ -182,15 +204,12 @@ class ContactDetailFragment : Fragment() {
         return binding.root
     }
 
-    fun updateContactInfo(updatedContact: Contact) {
-        ContactManager.updateContact(updatedContact)
-
+    fun updateContactInfo(updatedContact: Contact,position: Int) {
         binding.nameDetail.text = updatedContact.name
         binding.phoneNumberDetail.text = updatedContact.phone
         binding.emailDetail.text = updatedContact.email
 
-        ContactAdapter().updateContact(updatedContact)
-
+        updateDate(updatedContact,position)
     }
 
 
@@ -247,25 +266,7 @@ class ContactDetailFragment : Fragment() {
         }
         manager.notify(11,builder.build())
     }
-//    inner class FiveMinAlarmThread: Thread() {
-//        private var time = 0
-//        private var name = arguments?.getParcelable<Contact>("selectedContact")?.name.toString()
-//        override fun run() {
-//            while(handlerThread.isAlive){
-//                //HandlerThread가 살아있는동안 실행
-//                Handler(handlerThread.looper).post{
-//                    sleep(5000)
-//                    notification(name)
-//                    handlerThread.quitSafely()
-//                    stopThread()
-//                }
-//            }
-//        }
-//        fun stopThread(){
-//            fiveMinAlarmThread = null
-//        }
-//
-//    }
+
 
 
     // 다이얼로그에서 퍼미션 허용했는지 확인
@@ -281,4 +282,11 @@ class ContactDetailFragment : Fragment() {
             Log.d("test", "permission denied")
         }
     }
+
+    override fun onbackPressed() {
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+    }
+
+
+
 }
