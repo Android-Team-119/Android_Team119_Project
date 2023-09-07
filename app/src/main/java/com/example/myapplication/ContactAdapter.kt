@@ -2,8 +2,6 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,21 +9,26 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
 import com.example.myapplication.databinding.ContactlistItemGridBinding
+import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 
 class ContactAdapter(private val listType: Boolean = false) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 //    var contactList = ContactManager.getContactList().toMutableList()
     var contactList = ContactManager.getContactList()
+    var dataUpdateListener: DataUpdateListener?= null
+
     fun addcontact(contact: Contact){
         ContactManager.addContact(contact)
 //        contactList.add(contact)
+        notifyDataSetChanged()
+    }
+    fun adpterEditcontact(contact: Contact,position:Int){
+        ContactManager.editContact(position,contact)
         notifyDataSetChanged()
     }
     fun deleteContact(phone:String){
@@ -69,10 +72,19 @@ class ContactAdapter(private val listType: Boolean = false) :
             holder.bind(contact)
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
+                Log.d("viewPoint","$position")
                 bundle.putParcelable("selectedContact",contact)
+                bundle.putInt("position", position)
 
                 val contactDetailFragment = ContactDetailFragment()
-
+                contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
+                    override fun onDataUpdated(contact: Contact) {
+                    }
+                    override fun updateContact(contact: Contact, position: Int) {
+                        Log.d("test2", "$contact")
+                        dataUpdateListener?.updateContact(contact,position)
+                    }
+                }
                 contactDetailFragment.arguments = bundle
 
                 // Fragment 전환
@@ -89,9 +101,17 @@ class ContactAdapter(private val listType: Boolean = false) :
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putParcelable("selectedContact",contact)
+                bundle.putInt("position", position)
 
                 val contactDetailFragment = ContactDetailFragment()
-
+                contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
+                    override fun onDataUpdated(contact: Contact) {
+                    }
+                    override fun updateContact(contact: Contact, position: Int) {
+                        Log.d("test2", "$contact")
+                        dataUpdateListener?.updateContact(contact,position)
+                    }
+                }
                 contactDetailFragment.arguments = bundle
 
                 // Fragment 전환
@@ -164,12 +184,12 @@ class ContactAdapter(private val listType: Boolean = false) :
         val context = holder.itemView.context
         holder.favbtn.setOnClickListener{
             if(contactList[position].isLike == false){
-                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_likebutton_image)
+                val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_like_icon)
                 holder.favbtn.setImageDrawable(img)
                 ContactManager.updateIsLike(position,false)
                 Log.d("test","${contactList}")
             }else{
-                val img = ContextCompat.getDrawable(context, R.drawable.contactlistfragment_unlikebutton_image)
+                val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_likeborder_icon)
                 holder.favbtn.setImageDrawable(img)
                 ContactManager.updateIsLike(position,true)
                 Log.d("test","${contactList}")

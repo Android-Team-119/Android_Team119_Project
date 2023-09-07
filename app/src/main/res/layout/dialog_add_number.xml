@@ -3,12 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/basic_margin"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageButton
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#DDDDDD">
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay"
         android:id="@+id/profile_img"
         android:layout_width="@dimen/icon_size_big"
         android:layout_height="@dimen/icon_size_big"
         android:background="@drawable/dialog_profile_img"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

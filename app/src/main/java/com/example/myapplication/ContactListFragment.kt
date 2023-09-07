@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.os.Build
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,18 +19,18 @@ import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment() {// Viewtype 사용
 
     private lateinit var binding: ContactlistFragmentBinding
 //    private val listAdapter by lazy{
 //        ContactAdapter()
 //    }
-    private var statusCheck = false
+    var statusCheck = false
 
-    private val listAdapter by lazy{
+    val listAdapter by lazy{
         ContactAdapter(listType = false)
     }
-    private val listAdapterGrid by lazy{
+    val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
 
@@ -41,9 +43,6 @@ class ContactListFragment : Fragment() {
 
         binding.run {
             listToolbar.run {
-                // 제목 설정
-                title = "도와줘요 119"
-
                 inflateMenu(R.menu.main_item_toolbarmenu)
 
                 setOnMenuItemClickListener {
@@ -126,7 +125,6 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initGridView()
         initView()
 
     }
@@ -134,6 +132,7 @@ class ContactListFragment : Fragment() {
         // RecyclerView 초기화 및 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = listAdapter
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL))
 
 //        val recyclerView = binding.recyclerView
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -180,16 +179,16 @@ class ContactListFragment : Fragment() {
 //            return defaultValue * 20
 //        }
 
-        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-            return 0.3f
-        }
+//        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+//            return 0.3f
+//        }
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-
             Log.d("clear", "clearview")
         }
 
     })
+
 
 
 }

@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".ContactDetailFragment"
-    android:background="@color/white">
+    android:background="@color/mainColor"
+    tools:context=".ContactDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_margin="@dimen/basic_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,6 +16,8 @@
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/mainColor"
+
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,67 +28,174 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/profileImage_detail"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/mainFeat_card"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
-                    app:layout_constraintDimensionRatio="H,1:1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@color/subColor"
+                    app:cardCornerRadius="35dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/name_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:layout_marginVertical="@dimen/activity_vertical_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/profileImage_detail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_call_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@+id/name_detail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <Button
-                        android:id="@+id/messageBtn_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                        android:layout_weight="1"
-                        android:text="@string/modification" />
-
-                    <Button
-                        android:id="@+id/callBtn_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                        android:layout_weight="1"
-                        android:text="@string/call" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout_phoneBook"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/basic_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_call_btn">
-                    <Button
-                        android:id="@+id/phoneBook_detail"
-                        android:text="@string/phone_book_input"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/profileImage_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_launcher_background"
+                            app:layout_constraintDimensionRatio="H,1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/pageback_btn"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/leftarrow_img"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/update_btn"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/update_img"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <LinearLayout
+                            android:id="@+id/phoneInfo_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/subColor"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/profileImage_detail">
+
+                            <TextView
+                                android:id="@+id/name_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/activity_vertical_margin"
+                                android:text="@string/fragment_contact_detail_demo_name"
+                                android:textColor="@color/white"
+                                android:textSize="30dp"
+                                android:textStyle="bold" />
+
+                            <!-- 전화 번호 -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="5dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="7dp"
+                                    android:text="@string/mobile"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/phoneNumber_detail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fragment_content_detail_mobile_demo"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp" />
+                            </LinearLayout>
+
+                            <!-- 이메일 -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="7dp"
+                                    android:fontFamily="@font/nanum_square_regular"
+                                    android:text="@string/email"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/email_detail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/fragment_contact_detail_email_demo"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- 전화&문자 버튼 -->
+                        <LinearLayout
+                            android:id="@+id/linearLayout_call_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/subColor"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/phoneInfo_linear">
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/callBtn_detail"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/detail_call_img"
+                                android:text="@string/call"
+                                app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay" />
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/messageBtn_detail"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginStart="70dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/detail_message_img"
+                                android:text="@string/message"
+                                app:shapeAppearanceOverlay="@style/RoundedShapeAppearanceOverlay" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/phoneBook_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_marginVertical="15dp"
+                    android:backgroundTint="@color/subColor"
+                    android:text="@string/phone_book_input"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mainFeat_card" />
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout_Alert_btn"
@@ -96,84 +204,52 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_phoneBook">
+                    app:layout_constraintTop_toBottomOf="@+id/phoneBook_detail"
+                    android:layout_margin="5dp">
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/off_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="Off" />
+                        android:background="@drawable/detail_btn_style"
+                        android:backgroundTint="@color/subColor"
+                        android:text="@string/fragment_contact_detail_timer_off"
+                        android:textColor="@color/white" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/five_min_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="5분" />
+                        android:background="@drawable/detail_btn_style"
+                        android:backgroundTint="@color/subColor"
+                        android:text="@string/fragment_contact_detail_timer_5min"
+                        android:textColor="@color/white" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/thirty_min_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="30분" />
+                        android:background="@drawable/detail_btn_style"
+                        android:backgroundTint="@color/subColor"
+                        android:text="@string/fragment_contact_detail_timer_30min"
+                        android:textColor="@color/white" />
 
-                    <Button
+                    <android.widget.Button
                         android:id="@+id/one_hour_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="1시" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginVertical="@dimen/activity_vertical_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout_Alert_btn">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ededed"
-                        android:text="@string/mobile"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_bold_size"/>
-
-                    <TextView
-                        android:id="@+id/phoneNumber_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/groundColor"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:text="010-1234-8765"                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/groundColor"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:text="@string/email"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_bold_size"/>
-
-                    <TextView
-                        android:id="@+id/email_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:background="@color/groundColor"
-                        android:text="email@email.com"
-                        android:layout_marginBottom="20dp"/>
+                        android:background="@drawable/detail_btn_style"
+                        android:backgroundTint="@color/subColor"
+                        android:text="@string/fragment_contact_detail_timer_1hour"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,14 @@ package com.example.myapplication
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,14 +25,44 @@ import java.lang.NumberFormatException
 import java.util.regex.Pattern
 
 
+@Suppress("DEPRECATION")
 class UpdateNumberDialog: DialogFragment() {
+
+    companion object{
+        fun newInstance(contact:Contact, position: Int, isMyPage: String):UpdateNumberDialog{
+            var args = Bundle()
+            args.putInt("key_position",position)
+            args.putParcelable("key_contact",contact)
+            args.putString("key_isMyPage",isMyPage)
+
+            val fragment = UpdateNumberDialog()
+            fragment.arguments = args
+
+            return fragment
+        }
+
+        fun newInstance(contact:Contact, isMyPage: String) : UpdateNumberDialog {
+            var args = Bundle()
+            args.putParcelable("key_contact",contact)
+            args.putString("key_isMyPage", isMyPage)
+
+            val fragment = UpdateNumberDialog()
+            fragment.arguments = args
+
+            return fragment
+        }
+    }
     private var _binding: DialogAddNumberBinding? = null
     private var selectedImageUri: Uri?= null
-    interface InputContact{//Contact를 넣는 함수에 대한 인터페이스
-    fun setContact(contact: Contact)//Contact세팅 함수
-    }
+    interface EditContact{//Contact를 넣는 함수에 대한 인터페이스
+    fun editContact(contact: Contact,position:Int)//Contact세팅 함수
+    fun editContact(contact: Contact)
 
-    var testContact : InputContact? = null//인터페이스를 사용하기위한 변수 지정
+    }
+    var testContact : EditContact? = null//인터페이스를 사용하기위한 변수 지정
+
+
+
 
     private val binding get() = _binding!!
     private val email =
@@ -52,6 +84,7 @@ class UpdateNumberDialog: DialogFragment() {
             }
 
         }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,13 +101,36 @@ class UpdateNumberDialog: DialogFragment() {
         initView()
     }
     private fun initView(){
-        with(binding){
-            checkEditBox() //EditBox 유효성 검사
-            onPressSaveBtn() // 저장버튼 눌렀을 때 전역변수에 저장
-            onPressCancelBtn()// 취소버튼 눌렀을 때 Dialog종료
-            onPressImgView()// ImgView 눌렀을때 갤러리에서 사진선택
+        val key = arguments?.getString("key_isMyPage")
 
+        if(key == "DetailPage") {
+            with(binding) {
+                val data = arguments?.getParcelable<Contact>("key_contact")
+                Log.d("test12312312312312312", "$data")
+                inputName.setText(data!!.name)
+                inputEmail.setText(data.email)
+                inputNumber.setText(data.phone)
+                profileImg.setImageURI(data.image)
+                checkEditBox() //EditBox 유효성 검사
+                onPressSaveBtn() // 저장버튼 눌렀을 때 전역변수에 저장
+                onPressCancelBtn()// 취소버튼 눌렀을 때 Dialog종료
+                onPressImgView()// ImgView 눌렀을때 갤러리에서 사진선택
         }
+        }
+        else {
+            with(binding) {
+                val data = arguments?.getParcelable<Contact>("key_contact")
+                inputName.setText(data!!.name)
+                inputEmail.setText(data.email)
+                inputNumber.setText(data.phone)
+                profileImg.setImageURI(data.image)
+                checkEditBox()
+                onPressSaveBtn()
+                onPressCancelBtn()
+                onPressImgView()
+            }
+        }
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -90,28 +146,61 @@ class UpdateNumberDialog: DialogFragment() {
         }
     }//숫자 검사 기능
     private fun onPressSaveBtn(){
-        with(binding){
-            btnSave.setOnClickListener{//Save버튼 눌렀을 시 실행
-                if(inputName.text!!.isEmpty()){
-                    inputNameLayout.error ="이름을 입력해주세요"
-                }else if(inputNumber.text!!.isEmpty()){
-                    inputNumberLayout.error="전화번호를 입력해주세요"
-                }else if(inputEmail.text!!.isEmpty()){
-                    inputEmailLayout.error="이메일을 입력해주세요"
-                }else if(selectedImageUri == null){
-                    Toast.makeText(activity,"사진을 선택해주세요",Toast.LENGTH_SHORT).show()
-                }else{
-                    val updatedContact = Contact(
-                        selectedImageUri!!,
-                        inputName.text.toString(),
-                        inputNumber.text.toString(),
-                        inputEmail.text.toString(),
-                        false
-                    )
+        val key = arguments?.getString("key_isMyPage")
 
-                    testContact?.setContact(updatedContact)
+        if(key == "DetailPage") {
+            val position = arguments?.getInt("key_position")
+            with(binding) {
+                btnSave.setOnClickListener {//Save버튼 눌렀을 시 실행
+                    if (inputName.text!!.isEmpty()) {
+                        inputNameLayout.error = "이름을 입력해주세요"
+                    } else if (inputNumber.text!!.isEmpty()) {
+                        inputNumberLayout.error = "전화번호를 입력해주세요"
+                    } else if (inputEmail.text!!.isEmpty()) {
+                        inputEmailLayout.error = "이메일을 입력해주세요"
+                    } else if (selectedImageUri == null) {
+                        Toast.makeText(activity, "사진을 선택해주세요", Toast.LENGTH_SHORT).show()
+                    } else {
+                        testContact?.editContact(
+                            Contact(
+                                selectedImageUri!!,
+                                inputName.text.toString(),
+                                inputNumber.text.toString(),
+                                inputEmail.text.toString(),
+                                false
+                            ),
+                            position!!
+                        )
 
-                    dismiss()
+                        dismiss()
+                    }
+                }
+            }
+        }
+        else {
+            with(binding) {
+                btnSave.setOnClickListener {//Save버튼 눌렀을 시 실행
+                    if (inputName.text!!.isEmpty()) {
+                        inputNameLayout.error = "이름을 입력해주세요"
+                    } else if (inputNumber.text!!.isEmpty()) {
+                        inputNumberLayout.error = "전화번호를 입력해주세요"
+                    } else if (inputEmail.text!!.isEmpty()) {
+                        inputEmailLayout.error = "이메일을 입력해주세요"
+                    } else if (selectedImageUri == null) {
+                        Toast.makeText(activity, "사진을 선택해주세요", Toast.LENGTH_SHORT).show()
+                    } else {
+                        testContact?.editContact(
+                            Contact(
+                                selectedImageUri!!,
+                                inputName.text.toString(),
+                                inputNumber.text.toString(),
+                                inputEmail.text.toString(),
+                                false
+                            )
+                        )
+                        dismiss()
+                    }
+                    Log.d("mystatus", ContactManager.user.phone)
                 }
             }
         }
