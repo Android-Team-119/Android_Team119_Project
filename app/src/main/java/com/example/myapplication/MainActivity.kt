@@ -57,21 +57,27 @@ class MainActivity : AppCompatActivity() {
         // ViewPager2의 adapter 설정
         mainBinding.mainViewPager.adapter = viewpagerFragmentAdapter
         val contactListFragment = viewpagerFragmentAdapter.getListFragment().listAdapter
-        Log.d("fragment", "${viewpagerFragmentAdapter.getDetailFragment()}")
-        contactListFragment.dataUpdateListener = object : DataUpdateListener {
+            contactListFragment.dataUpdateListener = object : DataUpdateListener {
+                override fun onDataUpdated(contact: Contact) {
+                }
+
+                override fun updateContact(contact: Contact, position: Int) {
+                    Log.d("test3", "$contact")
+                    val contactListFragment = viewpagerFragmentAdapter.getListFragment()
+                        contactListFragment.listAdapter.adpterEditcontact(contact, position)
+                }
+            }
+        val contactGridListFragment = viewpagerFragmentAdapter.getListFragment().listAdapterGrid
+        contactGridListFragment.dataUpdateListener = object : DataUpdateListener {
             override fun onDataUpdated(contact: Contact) {
             }
 
             override fun updateContact(contact: Contact, position: Int) {
                 Log.d("test3", "$contact")
                 val contactListFragment = viewpagerFragmentAdapter.getListFragment()
-                if (contactListFragment.statusCheck == false) {
-                    contactListFragment.listAdapter.adpterEditcontact(contact, position)
-                } else if (contactListFragment.statusCheck == true) {
                     contactListFragment.listAdapterGrid.adpterEditcontact(contact, position)
                 }
             }
-        }
         // TabLayout과 ViewPaper2를 연결
         // 1. 탭메뉴의 이름을 리스트로 생성해둔다.
         val tabTitles = listOf<String>("Contact", "MyPage")
