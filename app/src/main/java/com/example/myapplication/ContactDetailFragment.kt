@@ -67,6 +67,14 @@ class ContactDetailFragment : Fragment() {
 
             dialog.show(fragmentManager, "UpdateNumberDialog")
         }
+        // 뒤로가기 버튼 클릭 리스너
+        binding.pagebackBtn.setOnClickListener {
+
+        }
+        // 수정 버튼 클릭 리스너
+        binding.updateBtn.setOnClickListener {
+
+        }
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
         if (status == PackageManager.PERMISSION_GRANTED) {
