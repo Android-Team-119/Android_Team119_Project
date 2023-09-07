@@ -28,6 +28,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 @Suppress("DEPRECATION")
@@ -238,6 +239,7 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
         binding.nameDetail.text = updatedContact.name
         binding.phoneNumberDetail.text = updatedContact.phone
         binding.emailDetail.text = updatedContact.email
+        binding.profileImageDetail.setImageURI(updatedContact.image)
 
         updateDate(updatedContact,position)
     }
