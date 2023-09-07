@@ -18,7 +18,7 @@ import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistFragmentBinding
 
-class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
+class ContactListFragment : Fragment() {// Viewtype 사용
 
     private lateinit var binding: ContactlistFragmentBinding
 //    private val listAdapter by lazy{
@@ -191,10 +191,6 @@ class ContactListFragment : Fragment(),DataUpdateListener {// Viewtype 사용
 
     })
 
-    override fun onDataUpdated(Contact: Contact) {
-        listAdapter.addcontact(Contact)
-        listAdapter.notifyDataSetChanged()
-    }
 
 
 }

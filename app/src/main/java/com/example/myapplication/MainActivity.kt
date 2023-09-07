@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -12,7 +13,9 @@ class MainActivity : AppCompatActivity() {
 
     // 뷰 바인딩
     private lateinit var mainBinding: ActivityMainBinding
-
+    val viewpagerFragmentAdapter  by lazy{
+        ViewPagerFragmentAdapter(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,25 +23,46 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
 
         // FragmentStateAdapter 생성
-        val viewpagerFragmentAdapter = ViewPagerFragmentAdapter(this)
-
-        // ViewPager2의 adapter 설정
-        mainBinding.mainViewPager.adapter = viewpagerFragmentAdapter
+        viewpagerFragmentAdapter
         val contactDetailFragment = viewpagerFragmentAdapter.getDetailFragment()
-        contactDetailFragment.dataUpdateListener = object: DataUpdateListener{
-            override fun onDataUpdated(Contact: Contact) {
-                Log.d("test","$Contact")
+        Log.d("fragment","${viewpagerFragmentAdapter.getDetailFragment()}")
+        contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
+            override fun onDataUpdated(contact: Contact) {
+                Log.d("losttest", "$contact")
                 val contactListFragment = viewpagerFragmentAdapter.getListFragment()
-                if(contactListFragment.statusCheck == false){
-                    contactListFragment.listAdapter.addcontact(Contact)
-                }else if(contactListFragment.statusCheck == true){
-                    contactListFragment.listAdapterGrid.addcontact(Contact)
+                if (contactListFragment.statusCheck == false) {
+                    contactListFragment.listAdapter.addcontact(contact)
+                } else if (contactListFragment.statusCheck == true) {
+                    contactListFragment.listAdapterGrid.addcontact(contact)
                 }
-
-
+            }
+            override fun updateContact(contact: Contact, position: Int) {
+                Log.d("test3", "$contact")
+                val contactListFragment = viewpagerFragmentAdapter.getListFragment()
+                if (contactListFragment.statusCheck == false) {
+                    contactListFragment.listAdapter.adpterEditcontact(contact, position)
+                } else if (contactListFragment.statusCheck == true) {
+                    contactListFragment.listAdapterGrid.adpterEditcontact(contact, position)
+                }
             }
         }
-
+        // ViewPager2의 adapter 설정
+        mainBinding.mainViewPager.adapter = viewpagerFragmentAdapter
+        val contactListFragment = viewpagerFragmentAdapter.getListFragment().listAdapter
+        Log.d("fragment","${viewpagerFragmentAdapter.getDetailFragment()}")
+        contactListFragment.dataUpdateListener = object : DataUpdateListener {
+            override fun onDataUpdated(contact: Contact) {
+            }
+            override fun updateContact(contact: Contact, position: Int) {
+                Log.d("test3", "$contact")
+                val contactListFragment = viewpagerFragmentAdapter.getListFragment()
+                if (contactListFragment.statusCheck == false) {
+                    contactListFragment.listAdapter.adpterEditcontact(contact, position)
+                } else if (contactListFragment.statusCheck == true) {
+                    contactListFragment.listAdapterGrid.adpterEditcontact(contact, position)
+                }
+            }
+        }
         // TabLayout과 ViewPaper2를 연결
         // 1. 탭메뉴의 이름을 리스트로 생성해둔다.
         val tabTitles = listOf<String>("Contact", "MyPage")
