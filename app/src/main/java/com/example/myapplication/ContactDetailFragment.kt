@@ -42,7 +42,7 @@ import kotlin.properties.Delegates
 
 @Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment() {
-    private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
+     private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
     private lateinit var binding:FragmentContactDetailBinding
@@ -88,6 +88,15 @@ class ContactDetailFragment : Fragment() {
             updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
             Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
 
+
+            dialog.show(fragmentManager, "UpdateNumberDialog")
+        }
+        // 뒤로가기 버튼 클릭 리스너
+        binding.pagebackBtn.setOnClickListener {
+
+        }
+        // 수정 버튼 클릭 리스너
+        binding.updateBtn.setOnClickListener {
 
         }
 
@@ -149,10 +158,17 @@ class ContactDetailFragment : Fragment() {
             binding.linearLayoutAlertBtn.visibility = View.GONE
         }
 
-        binding.nameDetail.text = selectedContact.name
-        binding.phoneNumberDetail.text = selectedContact.phone
-        binding.emailDetail.text = selectedContact.email
-        binding.profileImageDetail.setImageURI(selectedContact.image)
+            binding.nameDetail.text = ContactManager.user.name
+            binding.phoneNumberDetail.text = ContactManager.user.phone
+            binding.emailDetail.text = ContactManager.user.email
+            binding.profileImageDetail.setImageURI(ContactManager.user.image)
+        }
+        else {
+            binding.nameDetail.text = selectedContact.name
+            binding.phoneNumberDetail.text = selectedContact.phone
+            binding.emailDetail.text = selectedContact.email
+            binding.profileImageDetail.setImageURI(selectedContact.image)
+        }
 
         binding.fiveMinBtn.setOnClickListener{
             //5분 버튼이 눌렸을 때

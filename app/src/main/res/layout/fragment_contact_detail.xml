@@ -37,12 +37,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/pageback_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/contactdetail_back_icon"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/update_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/contactdetail_update_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/name_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이름"
+                    android:text="@string/fragment_contact_detail_demo_name"
                     android:layout_marginVertical="@dimen/activity_vertical_margin"
                     app:layout_constraintTop_toBottomOf="@+id/profileImage_detail"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="Off" />
+                        android:text="@string/fragment_contact_detail_timer_off" />
 
                     <Button
                         android:id="@+id/five_min_btn"
@@ -112,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="5분" />
+                        android:text="@string/fragment_contact_detail_timer_5min" />
 
                     <Button
                         android:id="@+id/thirty_min_btn"
@@ -120,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="30분" />
+                        android:text="@string/fragment_contact_detail_timer_30min" />
 
                     <Button
                         android:id="@+id/one_hour_btn"
@@ -128,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                         android:layout_weight="1"
-                        android:text="1시" />
+                        android:text="@string/fragment_contact_detail_timer_1hour" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -144,10 +161,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ededed"
-                        android:text="@string/mobile"
                         android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_bold_size"/>
+                        android:text="@string/mobile"
+                        android:textSize="@dimen/text_bold_size"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/phoneNumber_detail"
@@ -155,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/groundColor"
                         android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                        android:text="010-1234-8765"                        />
+                        android:text="@string/fragment_content_detail_mobile_demo"                        />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -172,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/activity_horizontal_margin"
                         android:background="@color/groundColor"
-                        android:text="email@email.com"
+                        android:text="@string/fragment_contact_detail_email_demo"
                         android:layout_marginBottom="20dp"/>
                 </LinearLayout>
 
