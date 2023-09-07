@@ -4,6 +4,10 @@ package com.example.myapplication.data
 import android.net.Uri
 import com.example.myapplication.R
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.content.Context
+import android.util.Log
 
 object ContactManager {
 
