@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Contact(
-    val image : Uri?,
+    var image : Uri?,
     var name : String,
     var phone : String,
     var email : String,

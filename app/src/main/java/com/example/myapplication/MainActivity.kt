@@ -1,7 +1,11 @@
 package com.example.myapplication
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -34,5 +38,8 @@ class MainActivity : AppCompatActivity() {
             mainBinding.mainViewPager,
             { tab, position -> tab.text = tabTitles[position] }).attach()
 
+
+
     }
+
 }
