@@ -28,6 +28,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.myapplication.data.Contact
+import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 @Suppress("DEPRECATION")
@@ -57,6 +58,8 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        var isMyPage = false
         // Inflate the layout for this fragment
         var selectedContact = arguments?.getParcelable<Contact>("selectedContact")
         var selectedPositition = arguments?.getInt("position")
@@ -144,17 +147,70 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
 
 
         if(selectedContact==null){
+            val user = ContactManager.user
+            isMyPage = true
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
             binding.linearLayoutAlertBtn.visibility = View.GONE
+            binding.nameDetail.text = user.name
+            binding.phoneNumberDetail.text = user.phone
+            binding.emailDetail.text = user.email
+            binding.profileImageDetail.setImageURI(user.image)
 
         }else {
+            isMyPage = false
             binding.nameDetail.text = selectedContact.name
             binding.phoneNumberDetail.text = selectedContact.phone
             binding.emailDetail.text = selectedContact.email
             binding.profileImageDetail.setImageURI(selectedContact.image)
             binding.phoneBookDetail.visibility = View.GONE
             binding.pagebackBtn.visibility=View.VISIBLE
+        }
+
+        // 수정 버튼 클릭 리스너
+        binding.updateBtn.setOnClickListener {
+            if (!isMyPage) {
+                val fragmentManager = requireActivity().supportFragmentManager
+                val test = selectedContact
+                val position = selectedPositition
+
+                val updateNumberDialog = UpdateNumberDialog.newInstance(test!!, position!!, "DetailPage")
+                updateNumberDialog.testContact = object : UpdateNumberDialog.EditContact {
+                    override fun editContact(contact: Contact, position: Int) {
+                        // 수정된 정보를 받아서 처리
+                        updateContactInfo(contact, position)
+//                    ContactManager.editContact(position,contact)
+                    }
+                    override fun editContact(contact: Contact) {
+
+                    }
+                }
+                updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
+                Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+
+            }
+            else {
+                val test = ContactManager.user
+                val fragmentManager = requireActivity().supportFragmentManager
+                val updateNumberDialog = UpdateNumberDialog.newInstance(test,"MyPage")
+                updateNumberDialog.testContact = object : UpdateNumberDialog.EditContact {
+                    override fun editContact(contact: Contact, position: Int) {
+
+                    }
+                    override fun editContact(contact: Contact) {
+                        binding.nameDetail.text = contact.name
+                        binding.phoneNumberDetail.text = contact.phone
+                        binding.emailDetail.text = contact.email
+                        binding.profileImageDetail.setImageURI(contact.image)
+
+                        ContactManager.updateUser(
+                            Contact(contact.image,contact.name,contact.phone,contact.email,false)
+                        )
+                    }
+
+                }
+                updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
+            }
         }
 
 
@@ -199,6 +255,7 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
         binding.nameDetail.text = updatedContact.name
         binding.phoneNumberDetail.text = updatedContact.phone
         binding.emailDetail.text = updatedContact.email
+        binding.profileImageDetail.setImageURI(updatedContact.image)
 
         updateDate(updatedContact,position)
     }

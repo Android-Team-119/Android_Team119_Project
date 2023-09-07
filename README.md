@@ -62,27 +62,32 @@
    - Adapter 기능 구현
    - Swipe 통화 연결 기능 구현
    - Notification 기능 구현
+   - 발표
 2. 안주환
    - RecyclerView 활용 전화번호부 리스트 구현
    - 연락처 리스트 UI 구현
    - Fragment 연결
+   - PR 및 issue 관리
 3. 이동희
    - Viewpager / Tablayout 활용 Main Activity layout 구현
    - Main Activity 기능 구현
    - 리스트/그리드 UI 구현
    - 리스트/그리드 보기 기능 구현
    - 플로팅 버튼 기능 구현
+   - 앱 전체 디자인
 4. 이슬비
    - 팀원 상세보기 layout 구현
    - call 버튼으로 전화연결 기능 구현
    - 연락처 추가 버튼으로 휴대폰에 저장된 연락처 추가 기능 구현
    - 리드미 작성
+   - ppt 자료 준비
 5. 조광희
    - 연락처 추가하기 Dialog UI 구현
    - Dialog 기능 구현
    - notify 기능 구현
    - 리스트 삭제 기능 구현
    - 좋아요 버튼 기능 구현
+   - 트러블 슈팅 작성
 
 ## ♻️ 참고 자료 / 외부 리소스 정보
 1. Viewpaper2 / TabLayout
