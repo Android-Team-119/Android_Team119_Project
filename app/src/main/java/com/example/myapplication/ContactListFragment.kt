@@ -182,12 +182,11 @@ class ContactListFragment : Fragment() {// Viewtype 사용
 //            return defaultValue * 20
 //        }
 
-        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-            return 0.3f
-        }
+//        override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+//            return 0.3f
+//        }
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-
             Log.d("clear", "clearview")
         }
 

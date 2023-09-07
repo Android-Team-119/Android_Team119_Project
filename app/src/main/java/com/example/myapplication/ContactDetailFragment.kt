@@ -14,8 +14,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
 import android.provider.ContactsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -28,17 +26,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.isGone
-import androidx.recyclerview.widget.RecyclerView
 import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.data.Contact
-import com.example.myapplication.databinding.ContactlistItemGridBinding
-import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
-import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
-import kotlin.properties.Delegates
 
 @Suppress("DEPRECATION")
 class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
@@ -73,7 +63,11 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
 
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-
+            var phoneNumber = selectedContact?.phone
+            val smsUri = Uri.parse("smsto:" + phoneNumber)
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.setData(smsUri)
+            requestLauncher.launch(intent)
         }
         // 뒤로가기 버튼 클릭 리스너
         binding.pagebackBtn.setOnClickListener {

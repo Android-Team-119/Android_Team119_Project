@@ -1,5 +1,8 @@
 package com.example.myapplication
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -99,5 +102,8 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
 
+
+
     }
+
 }
