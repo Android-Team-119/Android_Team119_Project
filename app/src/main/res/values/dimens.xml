@@ -13,7 +13,7 @@
     <dimen name="icon_size_big">90dp</dimen>
     <dimen name="icon_size_basic">60dp</dimen>
     <dimen name="icon_size_small">30dp</dimen>
-    <dimen name="text_bold_size">20sp</dimen>
+    <dimen name="text_bold_size">50sp</dimen>
     <dimen name="text_normal_size">15sp</dimen>
     <dimen name="text_field_size">250dp</dimen>
 </resources>
