@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/cardView_name_margin"
-        android:text="이름"
+        android:text="@string/contact_list_item_name"
         android:textSize="@dimen/text_bold_size"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

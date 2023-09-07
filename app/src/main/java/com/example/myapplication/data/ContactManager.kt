@@ -6,7 +6,7 @@ import android.net.Uri
 
 object ContactManager {
 
-    val imageuri1: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + com.example.myapplication.R.drawable.contactlistfragment_sample5_png)
+    val imageuri1: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + com.example.myapplication.R.drawable.contactlistfragment_sample10_png)
     val imageuri2 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.ic_delete)
     //예제 데이터
     private val contactList = mutableListOf<Contact>(
@@ -23,9 +23,8 @@ object ContactManager {
     )
 
 
-
     //개인 정보 객체
-    var user = Contact(null, "이충환", "010", "1", false)
+    var user = Contact(imageuri2, "이충환", "010", "1", false)
 
     //전화번호 추가
     fun addContact(contact: Contact) {
@@ -36,8 +35,9 @@ object ContactManager {
     fun updateContact(contact: Contact) {
         val existingContact = findContactByPhone(contact.phone)
         if (existingContact != null) {
-            contactList.remove(existingContact)
-            contactList.add(contact)
+            existingContact.name = contact.name
+            existingContact.phone = contact.phone
+            existingContact.email = contact.email
         }
     }
 
@@ -67,6 +67,7 @@ object ContactManager {
         contactList[position].isLike = !like
     }
 
+    //position 값을 받아 해당 position의 전화번호를 리턴
     fun getPhoneByPosition(position: Int) : String {
         return contactList[position].phone
     }

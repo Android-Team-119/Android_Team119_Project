@@ -55,7 +55,17 @@ class ContactDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentContactDetailBinding.inflate(layoutInflater)
         binding.messageBtnDetail.setOnClickListener {
-          Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
+            val fragmentManager = requireActivity().supportFragmentManager
+            val dialog = UpdateNumberDialog()
+
+            dialog.testContact = object : UpdateNumberDialog.InputContact {
+                override fun setContact(contact: Contact) {
+                    // 수정된 정보를 받아서 처리
+                    updateContactInfo(contact)
+                }
+            }
+
+            dialog.show(fragmentManager, "UpdateNumberDialog")
         }
         // 퍼미션 허용했는지 확인
         val status = ContextCompat.checkSelfPermission(requireContext(), "android.permission.READ_CONTACTS")
@@ -66,6 +76,8 @@ class ContactDetailFragment : Fragment() {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf<String>("android.permission.READ_CONTACTS"), 100)
             Log.d("test", "permission denied")
         }
+
+            // 다이얼로그(Dialog)에서 수정된 정보를 Fragment로 전달하는 콜백 설정
 
         // ActivityResultLauncher 초기화, 결과 콜백 정의
         requestLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -85,6 +97,7 @@ class ContactDetailFragment : Fragment() {
                     null
                 )
                 Log.d("test", "cursor size : ${cursor?.count}")
+
 
                 if (cursor!!.moveToFirst()) {
                     val name = cursor.getString(0)
@@ -110,12 +123,18 @@ class ContactDetailFragment : Fragment() {
             selectedContact = contact
             binding.linearLayoutCallBtn.visibility = View.GONE
             binding.linearLayoutAlertBtn.visibility = View.GONE
-        }
 
-        binding.nameDetail.text = selectedContact.name
-        binding.phoneNumberDetail.text = selectedContact.phone
-        binding.emailDetail.text = selectedContact.email
-        binding.profileImageDetail.setImageURI(selectedContact.image)
+            binding.nameDetail.text = ContactManager.user.name
+            binding.phoneNumberDetail.text = ContactManager.user.phone
+            binding.emailDetail.text = ContactManager.user.email
+            binding.profileImageDetail.setImageURI(ContactManager.user.image)
+        }
+        else {
+            binding.nameDetail.text = selectedContact.name
+            binding.phoneNumberDetail.text = selectedContact.phone
+            binding.emailDetail.text = selectedContact.email
+            binding.profileImageDetail.setImageURI(selectedContact.image)
+        }
 
         binding.fiveMinBtn.setOnClickListener{
             //5분 버튼이 눌렸을 때
@@ -154,6 +173,19 @@ class ContactDetailFragment : Fragment() {
 
         return binding.root
     }
+
+    fun updateContactInfo(updatedContact: Contact) {
+        ContactManager.updateContact(updatedContact)
+
+        binding.nameDetail.text = updatedContact.name
+        binding.phoneNumberDetail.text = updatedContact.phone
+        binding.emailDetail.text = updatedContact.email
+
+        ContactAdapter().updateContact(updatedContact)
+
+    }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

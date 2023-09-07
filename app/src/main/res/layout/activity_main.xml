@@ -42,14 +42,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/sub_margin"
-                    android:text="Contacts" />
+                    android:text="@string/main_tab_contacts" />
 
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/sub_margin"
-                    android:text="My Page" />
+                    android:text="@string/main_tab_mypage" />
             </com.google.android.material.tabs.TabLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
