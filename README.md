@@ -11,7 +11,8 @@
 6. 프로젝트 설치 및 실행 방법
 7. 프로젝트 사용 방법
 8. 참고 자료 / 외부 리소스 정보
-9. 라이센스
+9. 팀 노션 주소
+10. 라이센스
 
 ## 프로젝트 명
 재난 연락 119
@@ -19,11 +20,11 @@
 ## 프로젝트 설명
 통화 연동 기능 / 연락처 추가 / 연락처 상세보기 기능을 가진 전화번호부 Application을 개발하고자 한다.
 
-## 개발 기간
+## ⏰ 개발 기간
 23.09.04 ~ 23.09.11
 23.09.11 14:00 발표일
 
-## 주요 기능
+## ⚙️ 주요 기능
 - 메인 페이지
   - Fragment를 이용하여 리스트 페이지와 디테일 페이지 이동
   - 툴바에 연락처 추가 버튼을 누르면 다이얼로그로 이동
@@ -42,7 +43,7 @@
   - 연락처 추가 기능
   - 입력타입 제한
 
-## 팀원 및 역할 분담
+## 🎉 팀원 및 역할 분담
 <table>
   <tbody>
     <tr>
@@ -83,10 +84,13 @@
    - 리스트 삭제 기능 구현
    - 좋아요 버튼 기능 구현
 
-## 참고 자료 / 외부 리소스 정보
+## ♻️ 참고 자료 / 외부 리소스 정보
 1. Viewpaper2 / TabLayout
    - [카레유 - 여러개의 Fragment Swipe 구현 방법: ViewPager2](https://curryyou.tistory.com/415)
    - [카레유 - TabLayout와 ViewPager2연결 구현 방법](https://curryyou.tistory.com/416)
+
+## 📖 팀 노션
+https://www.notion.so/19-Team-119-c428f3334167461d9baff625f1081f1c
 
 ## 기술스택
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
