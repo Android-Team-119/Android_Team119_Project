@@ -6,11 +6,12 @@
 1. 프로젝트 명
 2. 프로젝트 설명
 3. 개발 기간
-4. 팀원 및 역할 분담
-5. 프로젝트 설치 및 실행 방법
-6. 프로젝트 사용 방법
-7. 참고 자료 / 외부 리소스 정보
-8. 라이센스
+4. 주요 기능
+5. 팀원 및 역할 분담
+6. 프로젝트 설치 및 실행 방법
+7. 프로젝트 사용 방법
+8. 참고 자료 / 외부 리소스 정보
+9. 라이센스
 
 ## 프로젝트 명
 재난 연락 119
@@ -45,11 +46,11 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href=""><img src="width="100px;" alt=""/><br /><sub><b>FE 팀장 : 이충환</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 안주환</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 이동희</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 이슬비</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : 조광희</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/LeeChoongHwan"><img src="https://avatars.githubusercontent.com/u/102038187?v=4" width="100px;"><br /><sub><b>FE 팀장 : 이충환</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/AJH1346"><img src="https://avatars.githubusercontent.com/u/139087984?v=4" width="100px;"><br /><sub><b>FE 팀원 : 안주환</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/LeeDonghee0917"><img src="https://avatars.githubusercontent.com/u/86705733?v=4" width="100px;"><br /><sub><b>FE 팀원 : 이동희</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/Seulbi-Lee-project"><img src="https://avatars.githubusercontent.com/u/138438363?v=4" width="100px;"><br /><sub><b>FE 팀원 : 이슬비</b></sub></a><br /></a></td>
+      <td align="center"><a href="https://github.com/ckh124"><img src="https://avatars.githubusercontent.com/u/113021323?v=4" width="100px;"><br /><sub><b>FE 팀원 : 조광희</b></sub></a><br /></a></td>
      <tr/>
   </tbody>
 </table>
