@@ -235,7 +235,6 @@ class ContactAdapter(private val listType: Boolean = false) :
                 gridBinding.profileImageview.setImageURI(contact.image)
             }
 
-            gridBinding.profileImageview.setImageURI(contact.image)
         }
     }
 
