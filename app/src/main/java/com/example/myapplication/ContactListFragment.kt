@@ -33,6 +33,9 @@ class ContactListFragment : Fragment() {// Viewtype 사용
     val listAdapterGrid by lazy{
         ContactAdapter(listType = true)
     }
+    fun change(){
+        binding.recyclerView.scrollToPosition(ContactAdapter().contactList.size-1)
+    }
 
 
     override fun onCreateView(

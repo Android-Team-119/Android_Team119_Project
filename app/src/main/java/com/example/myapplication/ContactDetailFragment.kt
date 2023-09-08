@@ -32,27 +32,29 @@ import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.FragmentContactDetailBinding
 
 @Suppress("DEPRECATION")
-class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
+class ContactDetailFragment : Fragment(), MainActivity.OnBackPressedLisener {
      private var handler: Handler = Handler()//Notification delay적용을 위한 Handler
     private var mActivity: MainActivity?= null
     lateinit var requestLauncher: ActivityResultLauncher<Intent>
     private lateinit var binding:FragmentContactDetailBinding
     var dataUpdateListener: DataUpdateListener?= null
+    var viewPageChangeListener: MainActivity.ViewPageChanger?= null
 
     private fun addData(contact:Contact){
-        Log.d("losttest!!#$@#!#", "$contact")
         dataUpdateListener?.onDataUpdated(contact)
     }
-    private fun updateDate(contact:Contact,position: Int){
-        Log.d("update","$contact"+"$position")
-        dataUpdateListener?.updateContact(contact,position)
-        Log.d("dataUpdateListener","$dataUpdateListener")
-    }
 
+    private fun updateDate(contact:Contact,position: Int){
+        dataUpdateListener?.updateContact(contact,position)
+    }
+    private fun viewPageChange(){
+        viewPageChangeListener?.ViewPageChange()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,16 +108,22 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
                     null,
                     null
                 )
+
                 Log.d("test", "cursor size : ${cursor?.count}")
-
-
                 if (cursor!!.moveToFirst()) {
                     val name = cursor.getString(0)
                     val phone = cursor.getString(1)
                     // val photoURI = cursor.getString(2)
                     // val id = cursor.getString(3)
                     var contect = Contact(null, name, phone, "없음", false)
-                   addData(contect)
+                    addData(contect)
+                    Toast.makeText(mActivity,"전화번호가 등록되었습니다!",Toast.LENGTH_SHORT).show()
+
+                }
+                val handler = Handler()
+                //FragmentManager is already executing transactions 방지하기 위한 핸들러 설정
+                handler.post {
+                    viewPageChange()
                 }
             }
         }
@@ -123,6 +131,7 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
         binding.phoneBookDetail.setOnClickListener {//연락처 불러오기 설정
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
             requestLauncher.launch(intent)
+
         }
 
         val contact = Contact(null, "디폴트 네임", "010-0000-0000", "email@email.com", false)
