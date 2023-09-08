@@ -25,11 +25,11 @@ class ContactAdapter(private val listType: Boolean = false) :
     fun addcontact(contact: Contact){
         ContactManager.addContact(contact)
 //        contactList.add(contact)
-        notifyDataSetChanged()
+        notifyItemInserted(contactList.size - 1)
     }
     fun adpterEditcontact(contact: Contact,position:Int){
         ContactManager.editContact(position,contact)
-        notifyDataSetChanged()
+        notifyItemChanged(position)
     }
     fun deleteContact(phone:String){
         ContactManager.deleteContactById(phone)
@@ -182,6 +182,13 @@ class ContactAdapter(private val listType: Boolean = false) :
     }
     fun favClicked(holder:ViewHolder,position:Int){
         val context = holder.itemView.context
+        if (contactList[position].isLike == false){
+            val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_likeborder_icon)
+            holder.favbtn.setImageDrawable(img)
+        }else if(contactList[position].isLike == true){
+            val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_like_icon)
+            holder.favbtn.setImageDrawable(img)
+        }
         holder.favbtn.setOnClickListener{
             if(contactList[position].isLike == false){
                 val img = ContextCompat.getDrawable(context, R.drawable.contactdetail_like_icon)
