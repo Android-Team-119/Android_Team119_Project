@@ -114,14 +114,13 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
                     val phone = cursor.getString(1)
                     // val photoURI = cursor.getString(2)
                     // val id = cursor.getString(3)
-                    Toast.makeText(requireContext(), "$name, $phone", Toast.LENGTH_SHORT).show()
                     var contect = Contact(null, name, phone, "없음", false)
                    addData(contect)
                 }
             }
         }
 
-        binding.phoneBookDetail.setOnClickListener {
+        binding.phoneBookDetail.setOnClickListener {//연락처 불러오기 설정
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
             requestLauncher.launch(intent)
         }
@@ -169,7 +168,6 @@ class ContactDetailFragment : Fragment(), MainActivity.onBackPressedLisener {
                     }
                 }
                 updateNumberDialog.show(fragmentManager, "UpdateNumberDialog")
-                Toast.makeText(context, "message", Toast.LENGTH_SHORT).show()
 
             }
             else {
