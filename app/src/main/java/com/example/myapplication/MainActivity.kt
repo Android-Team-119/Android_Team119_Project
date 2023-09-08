@@ -1,20 +1,21 @@
 package com.example.myapplication
 
-import android.content.ContentResolver
-import android.content.Context
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.example.myapplication.data.Contact
-import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.databinding.ContactlistFragmentBinding
 import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-    interface onBackPressedLisener {
+    interface OnBackPressedLisener {
         fun onbackPressed()
+    }
+    interface ViewPageChanger{
+        fun ViewPageChange()
     }
 
     // 뷰 바인딩
@@ -23,14 +24,25 @@ class MainActivity : AppCompatActivity() {
         ViewPagerFragmentAdapter(this)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+        val changeViewPagerFragment = viewpagerFragmentAdapter.getDetailFragment()
+        changeViewPagerFragment.viewPageChangeListener = object : ViewPageChanger{
+            override fun ViewPageChange() {
+                mainBinding.mainViewPager.setCurrentItem(0,false)
+                val recyclerViewTogoEnd = viewpagerFragmentAdapter.getListFragment()
+                recyclerViewTogoEnd.change()
+            }
+
+        }
 
         // FragmentStateAdapter 생성
         viewpagerFragmentAdapter
+
         val contactDetailFragment = viewpagerFragmentAdapter.getDetailFragment()
         Log.d("fragment", "${viewpagerFragmentAdapter.getDetailFragment()}")
         contactDetailFragment.dataUpdateListener = object : DataUpdateListener {
@@ -94,8 +106,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val fragmentList = supportFragmentManager.fragments
         for (fragment in fragmentList) {
-            if (fragment is onBackPressedLisener) {
-                (fragment as onBackPressedLisener).onbackPressed()
+            if (fragment is OnBackPressedLisener) {
+                (fragment as OnBackPressedLisener).onbackPressed()
                 return
             }
 
