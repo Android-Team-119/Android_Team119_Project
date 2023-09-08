@@ -111,6 +111,7 @@ class UpdateNumberDialog: DialogFragment() {
                 inputEmail.setText(data.email)
                 inputNumber.setText(data.phone)
                 profileImg.setImageURI(data.image)
+                selectedImageUri = data.image
                 checkEditBox() //EditBox 유효성 검사
                 onPressSaveBtn() // 저장버튼 눌렀을 때 전역변수에 저장
                 onPressCancelBtn()// 취소버튼 눌렀을 때 Dialog종료
@@ -124,6 +125,7 @@ class UpdateNumberDialog: DialogFragment() {
                 inputEmail.setText(data.email)
                 inputNumber.setText(data.phone)
                 profileImg.setImageURI(data.image)
+                selectedImageUri = data.image
                 checkEditBox()
                 onPressSaveBtn()
                 onPressCancelBtn()
