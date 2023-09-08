@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +15,7 @@ import com.example.myapplication.data.Contact
 import com.example.myapplication.data.ContactManager
 import com.example.myapplication.databinding.ContactlistItemBinding
 import com.example.myapplication.databinding.ContactlistItemGridBinding
-import com.example.myapplication.viewpaperadapter.ViewPagerFragmentAdapter
+
 
 class ContactAdapter(private val listType: Boolean = false) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -205,17 +206,20 @@ class ContactAdapter(private val listType: Boolean = false) :
         }
 
     }
-
-
     // 공통된 뷰홀더를 하나 더 만들고 난 후 이너클래스 뷰 홀더를 두개를 상속받아서 온 바인드 뷰홀더에서 공통 뷰홀더를 사용
     inner class ViewHolder(private val binding: ContactlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val favbtn = binding.likeImageButton
-
         fun bind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)
             binding.nameTextView.text = contact.name
-            binding.profileImageView.setImageURI(contact.image)
+            if(contact.image == null){
+                val img = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.dialog_profile_img)
+                binding.profileImageView.setImageURI(img)
+            }else{
+                binding.profileImageView.setImageURI(contact.image)
+            }
+
         }
     }
 
@@ -224,6 +228,13 @@ class ContactAdapter(private val listType: Boolean = false) :
         fun gridbind(contact: Contact) {
 //            binding.profileImageView.setImageResource(contact.image)
             gridBinding.nameGridTextview.text = contact.name
+            if(contact.image == null){
+                val img = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.dialog_profile_img)
+                gridBinding.profileImageview.setImageURI(img)
+            }else{
+                gridBinding.profileImageview.setImageURI(contact.image)
+            }
+
             gridBinding.profileImageview.setImageURI(contact.image)
         }
     }
