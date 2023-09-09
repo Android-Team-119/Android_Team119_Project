@@ -11,36 +11,30 @@ import android.util.Log
 
 object ContactManager {
 
-    private val imageUri1: Uri? = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample1_png)
-    val imageUri2 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample2_png)
-    val imageUri3 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample3_png)
-    val imageUri4 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample4_png)
-    val imageUri5 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample5_png)
-    val imageUri6 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample6_png)
-    val imageUri7 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample7_png)
-    val imageUri8 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample8_png)
-    val imageUri9 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample9_png)
-    val imageUri10 = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample10_png)
+    private val imageUri1: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample1)
+    private val imageUri2: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample2)
+    private val imageUri3: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample3)
+    private val imageUri4: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample4)
+    private val imageUri5: Uri = Uri.parse("android.resource://" + R::class.java.`package`?.name + "/" + R.drawable.contactlistfragment_sample5)
 
 //    val contentResolver : ContentResolver = this.contentResolver
 
     //예제 데이터
     private val contactList = mutableListOf<Contact>(
-        Contact(imageUri1, "이름1", "1", "1", false),
-        Contact(imageUri2, "이름2", "2", "2", false),
-        Contact(imageUri3, "이름3", "3", "3", false),
-        Contact(imageUri4, "이름4", "4", "4", false),
-        Contact(imageUri5, "이름5", "5", "5", false),
-        Contact(imageUri6, "이름6", "6", "6", false),
-        Contact(imageUri7, "이름7", "7", "7", false),
-        Contact(imageUri8, "이름8", "8", "8", false),
-        Contact(imageUri9, "이름9", "9", "9", false),
-        Contact(imageUri10, "이름10", "10", "10", false),
+        Contact(imageUri1, "비상 연락처", "010-1234-567", "ch901@naver.com", false),
+        Contact(imageUri2, "매니저님", "010-1111-222", "ch901@naver.com", false),
+        Contact(imageUri3, "튜터님", "010-1234-567", "ch901@naver.com", false),
+        Contact(imageUri4, "내일 배움 캠프", "010-0000-987", "ch901@naver.com", false),
+        Contact(imageUri5, "안주환", "010-1234-567", "ch901@naver.com", false),
+        Contact(imageUri2, "이동희", "010-1111-222", "ch901@naver.com", false),
+        Contact(imageUri3, "이슬비", "010-0000-000", "ch901@naver.com", false),
+        Contact(imageUri4, "이충환", "010-1234-567", "ch901@naver.com", false),
+        Contact(imageUri5, "조광희", "010-1234-567", "ch901@naver.com", false),
     )
 
 
     //개인 정보 객체
-    var user = Contact(imageUri3, "이충환", "010", "1", false)
+    var user = Contact(imageUri2, "내배캠", "010-1234-567", "ch901@naver.com", false)
 
     //전화번호 추가
     fun addContact(contact: Contact) {
