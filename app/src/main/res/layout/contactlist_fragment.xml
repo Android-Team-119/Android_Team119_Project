@@ -49,11 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="#FFA500"
+        android:backgroundTint="@color/white"
         android:contentDescription="@string/contact_list_floating_button_content_description"
         android:scaleType="centerCrop"
         android:src="@drawable/swipeup_img"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

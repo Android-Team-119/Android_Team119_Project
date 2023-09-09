@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">연락의 민족</string>
+    <string name="app_name">연락처</string>
 
     <!--main page tab layout-->
     <string name="main_tab_contacts">Contacts</string>
